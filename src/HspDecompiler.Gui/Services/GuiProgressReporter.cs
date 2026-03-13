@@ -11,7 +11,11 @@ namespace HspDecompiler.Gui.Services
 
         public async Task YieldAsync(CancellationToken ct = default)
         {
-            await Dispatcher.UIThread.InvokeAsync(() => { }, DispatcherPriority.Background);
+            ct.ThrowIfCancellationRequested();
+            if (Dispatcher.UIThread.CheckAccess())
+                await Dispatcher.UIThread.InvokeAsync(() => { }, DispatcherPriority.Background);
+            else
+                await Task.Yield();
         }
     }
 }

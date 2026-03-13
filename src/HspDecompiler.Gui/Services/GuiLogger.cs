@@ -19,9 +19,10 @@ namespace HspDecompiler.Gui.Services
 
         public void Write(string message)
         {
-            int elapsed = Environment.TickCount - _startTime;
+            int elapsedMs = Environment.TickCount - _startTime;
+            double elapsedSec = elapsedMs / 1000.0;
             string indent = new string(' ', _indentLevel * 2);
-            string line = $"{elapsed:D8}:{indent}{message}";
+            string line = $"[{elapsedSec,7:F3}s]  {indent}{message}";
             Dispatcher.UIThread.Post(() => _vm.AppendLog(line));
         }
 
@@ -33,12 +34,18 @@ namespace HspDecompiler.Gui.Services
 
         public void Error(string message)
         {
-            Dispatcher.UIThread.Post(() => _vm.AppendLog("ERROR: " + message));
+            int elapsedMs = Environment.TickCount - _startTime;
+            double elapsedSec = elapsedMs / 1000.0;
+            string line = $"[{elapsedSec,7:F3}s]  ERROR: {message}";
+            Dispatcher.UIThread.Post(() => _vm.AppendLog(line));
         }
 
         public void Error(Exception exception)
         {
-            Dispatcher.UIThread.Post(() => _vm.AppendLog("ERROR: " + exception.Message));
+            int elapsedMs = Environment.TickCount - _startTime;
+            double elapsedSec = elapsedMs / 1000.0;
+            string line = $"[{elapsedSec,7:F3}s]  ERROR: {exception.Message}";
+            Dispatcher.UIThread.Post(() => _vm.AppendLog(line));
         }
 
         public void StartSection() => _indentLevel++;

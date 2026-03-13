@@ -75,6 +75,7 @@ namespace HspDecompiler.Core.Pipeline
                     outputDir = outputDir + Path.DirectorySeparatorChar;
 
                     var dpmResult = DecompressDpm(reader, outputDir, options);
+                    result.DpmFiles.AddRange(dpmResult.Files);
                     result.OutputPath = outputDir;
 
                     if (dpmResult.AllEncrypted || dpmResult.Cancelled)

@@ -37,11 +37,6 @@ namespace HspDecompiler.Gui.ViewModels
                 var pipeline = new DecompilerPipeline(logger, progress);
 
                 string dictPath = Path.Combine(AppContext.BaseDirectory, "Dictionary.csv");
-                if (!pipeline.Initialize(dictPath))
-                {
-                    AppendLog(Strings.FailedToLoadDictionary);
-                    return;
-                }
 
                 var options = new DecompilerOptions
                 {
@@ -52,7 +47,16 @@ namespace HspDecompiler.Gui.ViewModels
                     SkipEncrypted = false
                 };
 
-                var result = await pipeline.RunAsync(options, CancellationToken.None);
+                var result = await Task.Run(async () =>
+                {
+                    if (!pipeline.Initialize(dictPath))
+                        return new DecompilerResult { Success = false, ErrorMessage = Strings.FailedToLoadDictionary };
+
+                    return await pipeline.RunAsync(options, CancellationToken.None);
+                });
+
+                foreach (var file in result.DpmFiles)
+                    DpmFiles.Add(file);
 
                 if (!result.Success)
                     AppendLog(string.Format(Strings.ErrorFormat, result.ErrorMessage));
