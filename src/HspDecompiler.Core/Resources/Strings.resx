@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msOccurs="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msOccurs="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msOccurs="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <!-- Dictionary -->
+  <data name="DictionaryLoadSuccess" xml:space="preserve"><value>load {0}: succeeded</value></data>
+  <data name="DictionaryLoadFailed" xml:space="preserve"><value>load {0}: failed</value></data>
+  <data name="DictionaryLoadError" xml:space="preserve"><value>Failed to read {0}</value></data>
+  <data name="DictionaryNotInitialized" xml:space="preserve"><value>Dictionary not initialized. Call Initialize() first.</value></data>
+
+  <!-- DPM extraction -->
+  <data name="SearchingDpmHeader" xml:space="preserve"><value>Searching for DPM header start position...</value></data>
+  <data name="DpmHeaderNotFound" xml:space="preserve"><value>DPM header not found (not an HSP executable)</value></data>
+  <data name="DpmNoFiles" xml:space="preserve"><value>No files contained in DPM</value></data>
+  <data name="AllFilesEncrypted" xml:space="preserve"><value>All files are encrypted</value></data>
+  <data name="FileEncrypted" xml:space="preserve"><value>{0} is encrypted</value></data>
+  <data name="FileAlreadyExists" xml:space="preserve"><value>A file with the same name as {0} already exists</value></data>
+  <data name="FileSeekFailed" xml:space="preserve"><value>Cannot seek to start position of {0}</value></data>
+  <data name="FileSaveFailed" xml:space="preserve"><value>Failed to save {0}</value></data>
+  <data name="DirectoryCreateFailed" xml:space="preserve"><value>Failed to create directory {0}</value></data>
+  <data name="ExtractionCancelled" xml:space="preserve"><value>Extraction cancelled</value></data>
+  <data name="ExtractionComplete" xml:space="preserve"><value>Extraction complete</value></data>
+
+  <!-- Decryption -->
+  <data name="DecryptingFile" xml:space="preserve"><value>Decrypting {0}...</value></data>
+  <data name="DecryptionFailed" xml:space="preserve"><value>Failed to decrypt {0}</value></data>
+  <data name="BufferSizeTooSmall" xml:space="preserve"><value>Buffer size too small</value></data>
+  <data name="InsufficientDecryptionInfo" xml:space="preserve"><value>Insufficient information for decryption</value></data>
+
+  <!-- Pipeline -->
+  <data name="ReadingFile" xml:space="preserve"><value>Reading {0}...</value></data>
+  <data name="Decompiling" xml:space="preserve"><value>Decompiling...</value></data>
+  <data name="DecompileComplete" xml:space="preserve"><value>Decompilation complete</value></data>
+  <data name="OutputtingTo" xml:space="preserve"><value>Outputting to {0}</value></data>
+  <data name="OutputComplete" xml:space="preserve"><value>Output complete</value></data>
+  <data name="AnalysisComplete" xml:space="preserve"><value>Analysis complete</value></data>
+  <data name="UnrecognizedFileFormat" xml:space="preserve"><value>Unrecognized file format</value></data>
+  <data name="NotHsp2OrHsp3" xml:space="preserve"><value>Format is neither HSP2 nor HSP3</value></data>
+
+  <!-- Decoder phases -->
+  <data name="AnalyzingHeader" xml:space="preserve"><value>Analyzing header...</value></data>
+  <data name="AnalyzingPreprocessor" xml:space="preserve"><value>Analyzing preprocessor...</value></data>
+  <data name="AnalyzingData" xml:space="preserve"><value>Analyzing...</value></data>
+  <data name="LexicalAnalysis" xml:space="preserve"><value>Lexical analysis...</value></data>
+  <data name="SyntacticAnalysis" xml:space="preserve"><value>Syntactic analysis...</value></data>
+  <data name="CreatingOutputFile" xml:space="preserve"><value>Creating output file...</value></data>
+  <data name="UnexpectedError" xml:space="preserve"><value>Unexpected error</value></data>
+
+  <!-- Error log -->
+  <data name="ErrorLogWritten" xml:space="preserve"><value>Error log written to {0}</value></data>
+  <data name="CodeNotFullyDecompiled" xml:space="preserve"><value>Code could not be fully decompiled</value></data>
+
+  <!-- Table headers -->
+  <data name="EncryptedYes" xml:space="preserve"><value>Yes</value></data>
+  <data name="EncryptedNo" xml:space="preserve"><value>No</value></data>
+  <data name="ElapsedHeader" xml:space="preserve"><value>Elapsed(ms)</value></data>
+  <data name="ProcessingContent" xml:space="preserve"><value>Processing content</value></data>
+
+  <!-- Fatal errors -->
+  <data name="FatalErrorCaught" xml:space="preserve"><value>A fatal exception was caught. Details output to log.dat.</value></data>
+  <data name="CriticalError" xml:space="preserve"><value>Critical Error</value></data>
+
+  <!-- Header validation -->
+  <data name="FileHeaderMissing" xml:space="preserve"><value>File header is missing</value></data>
+  <data name="InvalidFileFormat" xml:space="preserve"><value>Invalid file format</value></data>
+  <data name="CompiledWithHsp2OrEarlier" xml:space="preserve"><value>File compiled with HSP2 or earlier</value></data>
+  <data name="HeaderAnalysisFailed" xml:space="preserve"><value>Header analysis failed</value></data>
+  <data name="UnexpectedErrorDuringHeaderAnalysis" xml:space="preserve"><value>Unexpected error during header analysis</value></data>
+  <data name="UnexpectedErrorDuringStreamRead" xml:space="preserve"><value>Unexpected error during stream read</value></data>
+  <data name="UnrecoverableErrorDuringLabelRead" xml:space="preserve"><value>Unrecoverable error during label read</value></data>
+  <data name="HeaderFileSizeExceedsActual" xml:space="preserve"><value>Header information is invalid (file size in header exceeds actual file length)</value></data>
+  <data name="HeaderRegionStartExceedsFileSize" xml:space="preserve"><value>Header information is invalid ({0} start position exceeds file length)</value></data>
+  <data name="HeaderRegionEndExceedsFileSize" xml:space="preserve"><value>Header information is invalid ({0} end position exceeds file length)</value></data>
+
+  <!-- Header region names -->
+  <data name="RegionCode" xml:space="preserve"><value>code region</value></data>
+  <data name="RegionLiteral" xml:space="preserve"><value>literal region</value></data>
+  <data name="RegionLabel" xml:space="preserve"><value>label definition region</value></data>
+  <data name="RegionDll" xml:space="preserve"><value>DLL definition region</value></data>
+  <data name="RegionFunction" xml:space="preserve"><value>user-defined function region</value></data>
+  <data name="RegionPlugin" xml:space="preserve"><value>plugin definition region</value></data>
+  <data name="RegionParameter" xml:space="preserve"><value>function parameter definition region</value></data>
+
+  <!-- AxData validation -->
+  <data name="ArgumentNullReader" xml:space="preserve"><value>reader cannot be null</value></data>
+  <data name="ArgumentNullDictionary" xml:space="preserve"><value>dictionary cannot be null</value></data>
+  <data name="LoadStartNotCalled" xml:space="preserve"><value>LoadStart has not been called</value></data>
+  <data name="HeaderNotLoaded" xml:space="preserve"><value>Header has not been loaded</value></data>
+
+  <!-- Syntactic analysis -->
+  <data name="RpnConversionFailed" xml:space="preserve"><value>Failed to convert to reverse Polish notation</value></data>
+  <data name="StructNotInHspSpec" xml:space="preserve"><value>#struct output by deHSP is not included in HSP's published declaration specification</value></data>
+  <data name="AnalysisFailedEndNotStored" xml:space="preserve"><value>Analysis failed: end position not stored</value></data>
+  <data name="AnalysisFailedScopeEndExceedsCode" xml:space="preserve"><value>Analysis failed: {0}: scope end exceeds code end</value></data>
+  <data name="AnalysisFailedScopeEndMidLine" xml:space="preserve"><value>Analysis failed: {0}: scope end is in the middle of a line</value></data>
+
+  <!-- CodeTokenFactory -->
+  <data name="ExpressionStackEmpty" xml:space="preserve"><value>Expression: stack became empty during read</value></data>
+  <data name="ExpressionInvalidElement" xml:space="preserve"><value>Expression: invalid element detected</value></data>
+  <data name="LiteralExpressionStackEmpty" xml:space="preserve"><value>Literal expression: stack became empty during read</value></data>
+  <data name="LiteralExpressionInvalidElement" xml:space="preserve"><value>Literal expression: invalid element detected</value></data>
+  <data name="ArgumentStackEmpty" xml:space="preserve"><value>Argument: stack became empty during read</value></data>
+  <data name="FunctionStackEmpty" xml:space="preserve"><value>Function: stack became empty during read</value></data>
+  <data name="FunctionInvalidStart" xml:space="preserve"><value>Function: started from non-function primitive</value></data>
+  <data name="VariableStackEmpty" xml:space="preserve"><value>Variable: stack became empty during read</value></data>
+  <data name="VariableInvalidStart" xml:space="preserve"><value>Variable: started from non-variable primitive</value></data>
+  <data name="OperatorStackEmpty" xml:space="preserve"><value>Operator: stack became empty during read</value></data>
+  <data name="OperatorInvalidElement" xml:space="preserve"><value>Operator: invalid element detected</value></data>
+
+  <!-- LogicalLineFactory -->
+  <data name="CannotDetermineLeadToken" xml:space="preserve"><value>Cannot analyze: unable to determine leading token</value></data>
+  <data name="McallInvalidStart" xml:space="preserve"><value>mcall: started from non-mcall primitive</value></data>
+  <data name="McallInconvertibleFormat" xml:space="preserve"><value>mcall line: inconvertible format</value></data>
+  <data name="McallUnexpectedToken" xml:space="preserve"><value>mcall line: unexpected token present</value></data>
+  <data name="OnBranchInvalidStart" xml:space="preserve"><value>on branch line: started from non-branch primitive</value></data>
+  <data name="OnBranchUnexpectedToken" xml:space="preserve"><value>on branch line: unexpected token present</value></data>
+  <data name="AssignmentNoOperator" xml:space="preserve"><value>Assignment line: no operator</value></data>
+  <data name="AssignmentUnexpectedToken" xml:space="preserve"><value>Assignment line: unexpected token present</value></data>
+  <data name="IfBranchInvalidStart" xml:space="preserve"><value>If branch line: started from non-branch primitive</value></data>
+  <data name="IfBranchUnexpectedToken" xml:space="preserve"><value>If branch line: unexpected token present</value></data>
+  <data name="CommandUnexpectedToken" xml:space="preserve"><value>Command line: unexpected token present</value></data>
+
+  <!-- Misc -->
+  <data name="OperatorPriorityOnNonOperator" xml:space="preserve"><value>Operator priority requested on non-operator primitive</value></data>
+  <data name="UnsupportedType" xml:space="preserve"><value>Unsupported type</value></data>
+</root>

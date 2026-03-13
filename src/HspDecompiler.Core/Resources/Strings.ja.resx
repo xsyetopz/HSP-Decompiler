@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msOccurs="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msOccurs="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msOccurs="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <!-- Dictionary -->
+  <data name="DictionaryLoadSuccess" xml:space="preserve"><value>load {0}: 成功</value></data>
+  <data name="DictionaryLoadFailed" xml:space="preserve"><value>load {0}: 失敗</value></data>
+  <data name="DictionaryLoadError" xml:space="preserve"><value>{0}の読込に失敗しました</value></data>
+  <data name="DictionaryNotInitialized" xml:space="preserve"><value>辞書が初期化されていません。Initialize()を先に呼び出してください。</value></data>
+
+  <!-- DPM extraction -->
+  <data name="SearchingDpmHeader" xml:space="preserve"><value>DPMヘッダーの開始位置を検索中...</value></data>
+  <data name="DpmHeaderNotFound" xml:space="preserve"><value>DPMヘッダーが見つかりません(HSPの実行ファイルではありません)</value></data>
+  <data name="DpmNoFiles" xml:space="preserve"><value>DPMにファイルが含まれていません</value></data>
+  <data name="AllFilesEncrypted" xml:space="preserve"><value>すべてのファイルが暗号化されています</value></data>
+  <data name="FileEncrypted" xml:space="preserve"><value>{0}は暗号化されています</value></data>
+  <data name="FileAlreadyExists" xml:space="preserve"><value>{0}と同名のファイルが既に存在します</value></data>
+  <data name="FileSeekFailed" xml:space="preserve"><value>{0}の開始位置に移動できませんでした</value></data>
+  <data name="FileSaveFailed" xml:space="preserve"><value>{0}の保存に失敗しました</value></data>
+  <data name="DirectoryCreateFailed" xml:space="preserve"><value>ディレクトリ{0}の作成に失敗しました</value></data>
+  <data name="ExtractionCancelled" xml:space="preserve"><value>展開中断</value></data>
+  <data name="ExtractionComplete" xml:space="preserve"><value>展開終了</value></data>
+
+  <!-- Decryption -->
+  <data name="DecryptingFile" xml:space="preserve"><value>{0}の復号中...</value></data>
+  <data name="DecryptionFailed" xml:space="preserve"><value>{0}の復号に失敗しました</value></data>
+  <data name="BufferSizeTooSmall" xml:space="preserve"><value>バッファサイズ不足</value></data>
+  <data name="InsufficientDecryptionInfo" xml:space="preserve"><value>解読に必要な情報が足りません</value></data>
+
+  <!-- Pipeline -->
+  <data name="ReadingFile" xml:space="preserve"><value>{0}を読み込み中...</value></data>
+  <data name="Decompiling" xml:space="preserve"><value>逆コンパイル中...</value></data>
+  <data name="DecompileComplete" xml:space="preserve"><value>逆コンパイル終了</value></data>
+  <data name="OutputtingTo" xml:space="preserve"><value>{0}に出力</value></data>
+  <data name="OutputComplete" xml:space="preserve"><value>出力完了</value></data>
+  <data name="AnalysisComplete" xml:space="preserve"><value>解析終了</value></data>
+  <data name="UnrecognizedFileFormat" xml:space="preserve"><value>解析できないファイル形式です</value></data>
+  <data name="NotHsp2OrHsp3" xml:space="preserve"><value>HSP2でもHSP3でもない形式</value></data>
+
+  <!-- Decoder phases -->
+  <data name="AnalyzingHeader" xml:space="preserve"><value>ヘッダー解析中...</value></data>
+  <data name="AnalyzingPreprocessor" xml:space="preserve"><value>プリプロセッサ解析中...</value></data>
+  <data name="AnalyzingData" xml:space="preserve"><value>解析中...</value></data>
+  <data name="LexicalAnalysis" xml:space="preserve"><value>字句解析中...</value></data>
+  <data name="SyntacticAnalysis" xml:space="preserve"><value>構文解析中...</value></data>
+  <data name="CreatingOutputFile" xml:space="preserve"><value>出力ファイル作成中...</value></data>
+  <data name="UnexpectedError" xml:space="preserve"><value>想定外のエラー</value></data>
+
+  <!-- Error log -->
+  <data name="ErrorLogWritten" xml:space="preserve"><value>{0}にエラーを出力します</value></data>
+  <data name="CodeNotFullyDecompiled" xml:space="preserve"><value>コードを完全には復元できませんでした</value></data>
+
+  <!-- Table headers -->
+  <data name="EncryptedYes" xml:space="preserve"><value>有</value></data>
+  <data name="EncryptedNo" xml:space="preserve"><value>―</value></data>
+  <data name="ElapsedHeader" xml:space="preserve"><value>経過(ms)</value></data>
+  <data name="ProcessingContent" xml:space="preserve"><value>処理内容</value></data>
+
+  <!-- Fatal errors -->
+  <data name="FatalErrorCaught" xml:space="preserve"><value>例外を最外層でcatchできませんでした。詳細をlog.datに出力し終了します。</value></data>
+  <data name="CriticalError" xml:space="preserve"><value>致命的なエラー</value></data>
+
+  <!-- Header validation -->
+  <data name="FileHeaderMissing" xml:space="preserve"><value>ファイルヘッダーがありません</value></data>
+  <data name="InvalidFileFormat" xml:space="preserve"><value>ファイル形式が違います</value></data>
+  <data name="CompiledWithHsp2OrEarlier" xml:space="preserve"><value>HSP2以前でコンパイルされたファイルです</value></data>
+  <data name="HeaderAnalysisFailed" xml:space="preserve"><value>ヘッダー解析に失敗</value></data>
+  <data name="UnexpectedErrorDuringHeaderAnalysis" xml:space="preserve"><value>ヘッダー解析中に想定外のエラー</value></data>
+  <data name="UnexpectedErrorDuringStreamRead" xml:space="preserve"><value>ストリームの読み取り中に想定外のエラー</value></data>
+  <data name="UnrecoverableErrorDuringLabelRead" xml:space="preserve"><value>ラベルの読み取り中に復元できないエラー</value></data>
+  <data name="HeaderFileSizeExceedsActual" xml:space="preserve"><value>ヘッダの情報が異常です(ヘッダに記載されているファイルサイズが実際のファイル長を超えています)</value></data>
+  <data name="HeaderRegionStartExceedsFileSize" xml:space="preserve"><value>ヘッダの情報が異常です({0}の開始位置がファイル長を超えています)</value></data>
+  <data name="HeaderRegionEndExceedsFileSize" xml:space="preserve"><value>ヘッダの情報が異常です({0}の終端がファイル長を超えています)</value></data>
+
+  <!-- Header region names -->
+  <data name="RegionCode" xml:space="preserve"><value>コード領域</value></data>
+  <data name="RegionLiteral" xml:space="preserve"><value>リテラル領域</value></data>
+  <data name="RegionLabel" xml:space="preserve"><value>ラベル定義領域</value></data>
+  <data name="RegionDll" xml:space="preserve"><value>DLL定義領域</value></data>
+  <data name="RegionFunction" xml:space="preserve"><value>ユーザ定義関数領域</value></data>
+  <data name="RegionPlugin" xml:space="preserve"><value>プラグイン定義領域</value></data>
+  <data name="RegionParameter" xml:space="preserve"><value>関数パラメータ定義領域</value></data>
+
+  <!-- AxData validation -->
+  <data name="ArgumentNullReader" xml:space="preserve"><value>readerにnull値を指定できません</value></data>
+  <data name="ArgumentNullDictionary" xml:space="preserve"><value>dictionaryにnull値を指定できません</value></data>
+  <data name="LoadStartNotCalled" xml:space="preserve"><value>LoadStartを呼び出していません</value></data>
+  <data name="HeaderNotLoaded" xml:space="preserve"><value>ヘッダーが読み込まれていません</value></data>
+
+  <!-- Syntactic analysis -->
+  <data name="RpnConversionFailed" xml:space="preserve"><value>逆ポーランドへの変換に失敗</value></data>
+  <data name="StructNotInHspSpec" xml:space="preserve"><value>deHSPの出力する#structはHSPの公開されている宣言仕様には含まれません</value></data>
+  <data name="AnalysisFailedEndNotStored" xml:space="preserve"><value>解析失敗:終端が保存されていません</value></data>
+  <data name="AnalysisFailedScopeEndExceedsCode" xml:space="preserve"><value>解析失敗:{0}:スコープの終端がコード終端を超えています</value></data>
+  <data name="AnalysisFailedScopeEndMidLine" xml:space="preserve"><value>解析失敗:{0}:スコープの終端が行の途中です</value></data>
+
+  <!-- CodeTokenFactory -->
+  <data name="ExpressionStackEmpty" xml:space="preserve"><value>式読み込み中にスタックが空になった</value></data>
+  <data name="ExpressionInvalidElement" xml:space="preserve"><value>式：不適切な要素を検出</value></data>
+  <data name="LiteralExpressionStackEmpty" xml:space="preserve"><value>リテラル式：読み込み中にスタックが空になった</value></data>
+  <data name="LiteralExpressionInvalidElement" xml:space="preserve"><value>リテラル式：不適切な要素を検出</value></data>
+  <data name="ArgumentStackEmpty" xml:space="preserve"><value>引数：読み込み中にスタックが空になった</value></data>
+  <data name="FunctionStackEmpty" xml:space="preserve"><value>関数：読み込み中にスタックが空になった</value></data>
+  <data name="FunctionInvalidStart" xml:space="preserve"><value>関数：関数プリミティブ以外からスタート</value></data>
+  <data name="VariableStackEmpty" xml:space="preserve"><value>変数：読み込み中にスタックが空になった</value></data>
+  <data name="VariableInvalidStart" xml:space="preserve"><value>変数：変数プリミティブ以外からスタート</value></data>
+  <data name="OperatorStackEmpty" xml:space="preserve"><value>演算子：読み込み中にスタックが空になった</value></data>
+  <data name="OperatorInvalidElement" xml:space="preserve"><value>演算子：不適切な要素を検出</value></data>
+
+  <!-- LogicalLineFactory -->
+  <data name="CannotDetermineLeadToken" xml:space="preserve"><value>解析不能：先頭の単語が判定できない</value></data>
+  <data name="McallInvalidStart" xml:space="preserve"><value>mcall：mcallプリミティブ以外からスタート</value></data>
+  <data name="McallInconvertibleFormat" xml:space="preserve"><value>mcall行：変換不可能な形式</value></data>
+  <data name="McallUnexpectedToken" xml:space="preserve"><value>mcall行：想定外のトークンが存在</value></data>
+  <data name="OnBranchInvalidStart" xml:space="preserve"><value>on条件分岐行：条件分岐プリミティブ以外からスタート</value></data>
+  <data name="OnBranchUnexpectedToken" xml:space="preserve"><value>on条件分岐行：想定外のトークンが存在</value></data>
+  <data name="AssignmentNoOperator" xml:space="preserve"><value>代入行：演算子なし</value></data>
+  <data name="AssignmentUnexpectedToken" xml:space="preserve"><value>代入行：想定外のトークンが存在</value></data>
+  <data name="IfBranchInvalidStart" xml:space="preserve"><value>条件分岐行：条件分岐プリミティブ以外からスタート</value></data>
+  <data name="IfBranchUnexpectedToken" xml:space="preserve"><value>条件分岐行：想定外のトークンが存在</value></data>
+  <data name="CommandUnexpectedToken" xml:space="preserve"><value>命令行：想定外のトークンが存在</value></data>
+
+  <!-- Misc -->
+  <data name="OperatorPriorityOnNonOperator" xml:space="preserve"><value>演算子でないプリミティブに優先度を要求されました</value></data>
+  <data name="UnsupportedType" xml:space="preserve"><value>サポート外</value></data>
+</root>
