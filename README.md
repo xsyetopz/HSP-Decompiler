@@ -1,37 +1,91 @@
-# HSP-Decompiler
-Decompiler for Hot Soup Processor 2/3. Original source code written by Kitsutsuki.
+# HSP Decompiler (deHSP)
 
-## 概要
-　[HSP](http://hsp.tv/)でコンパイルされたファイル(*.ax, *.exe, *.dpm)をソースファイル(*.hsp, *.as)に戻すソフトです。  
-　HSPのバージョンは、HSP2およびHSP3に対応しています。  
-　オリジナルのソフトは[きつつき](http://www.vector.co.jp/vpack/browse/person/an043697.html)さんによって書かれました(後述)。
+Converts HSP (Hot Soup Processor) 2 and 3 compiled files back to source code. Accepts `.ax`, `.exe`, and `.dpm` files and produces `.hsp` or `.as` output.
 
-## 歴史
-### 作者
-|ソフト名|作者|説明|
-|--------|----|----|
-|[HSP逆コンパイラ](http://www.vector.co.jp/soft/win95/prog/se390297.html)|[きつつき](http://www.vector.co.jp/vpack/browse/person/an043697.html)|オリジナルのソフト|
-|[HSPdeco](https://osdn.jp/projects/hspdeco/)|[minorshift](https://osdn.jp/users/minorshift/)|オリジナルの改良Ver|
-|[HSPdecom](http://stpr18.blogspot.jp/2015/10/hspdecohspelona.html)|[したぷる](https://www.blogger.com/profile/00794326060600750840)、[YSRKEN](https://github.com/YSRKEN)|HSPdecoの改良Ver|
-|[HSPdecoのパッチ](http://vivibit.net/hspdeco/)|[xx2zz](http://vivibit.net/about/)|復号が失敗する際の対策パッチ|
+## Features
 
-### ソフト
-|日付|ソフト名|バージョン|説明|
-|----|--------|----------|----|
-|2006/01/28|HSP逆コンパイラ|1.0|当初、シェアウェアとして公開された|
-|2007/09/10|HSP逆コンパイラ|1.1|HSP3に対応された|
-|2010/09/12|HSP逆コンパイラ|1.2|PDS・OSSになった他、バグ修正|
-|2012/01/13|HSPdeco|1.0|axファイルのデコード機能を開放、バグ修正|
-|2015/12/15|HSPdecom|1.0|変数名復元をサポート、辞書データ追加|
-|2016/08/16|HSPdecom|1.1|パッチを全て付加、GitHubに上げ直し|
+- Decompiles HSP3 (`.ax` → `.hsp`) and HSP2 (`.ax` → `.as`) compiled files
+- Extracts files from DPM archives
+- Extracts DPM from HSP executables (`.exe`)
+- Decrypts encrypted files in DPM archives (brute-force XOR+ADD)
+- Cross-platform: Windows, macOS, Linux
+- CLI tool and GUI application
 
-## 実行環境
-　オリジナルのソフトは[.NET Framework 2.0](https://www.microsoft.com/ja-jp/download/details.aspx?id=1639)で動作します。  
-　(ランタイム上で)高度な機能は全く使いませんので、後でもこれが踏襲されているようです。
+## Requirements
 
-## 開発環境
-　オリジナルのソフトは恐らく[Visual Studio 2008](https://ja.wikipedia.org/wiki/Microsoft_Visual_Studio#Visual_Studio_2008)で書かれたのでしょう。  
-　ただし、わざわざ古いVerのVSを入れるのが面倒なので、パッチ当ては[VS2015 Community](https://www.visualstudio.com/ja-jp/products/visual-studio-community-vs.aspx)で行いました。
+- .NET 8.0 SDK or later
 
-## ライセンス
-　PDSライセンス(HSPdecoはzlib/libpngライセンス。詳しくはLICENSEファイルを参照)
+## Building
+
+```bash
+dotnet build HspDecompiler.sln
+```
+
+## Usage
+
+### CLI
+
+```bash
+# Decompile an .ax file
+dotnet run --project src/HspDecompiler.Cli -- input.ax
+
+# Decompile with output directory
+dotnet run --project src/HspDecompiler.Cli -- input.ax -o ./output
+
+# Extract DPM archive
+dotnet run --project src/HspDecompiler.Cli -- archive.dpm -o ./extracted
+
+# Extract from HSP executable
+dotnet run --project src/HspDecompiler.Cli -- game.exe -o ./extracted
+```
+
+Options:
+
+```text
+dehsp <input-file> [options]
+  -o, --output <dir>       Output directory (default: input file's directory)
+  -d, --dictionary <path>  Dictionary.csv path (default: alongside executable)
+  --no-decrypt             Skip encrypted file decryption
+  --skip-encrypted         Extract only non-encrypted files from DPM
+  -v, --verbose            Verbose logging
+  --version                Show version
+  -h, --help               Show help
+```
+
+### GUI
+
+```bash
+dotnet run --project src/HspDecompiler.Gui
+```
+
+Or drag-and-drop files onto the application window.
+
+## Project Structure
+
+| Project              | Description                              |
+| -------------------- | ---------------------------------------- |
+| `HspDecompiler.Core` | Core decompiler library — all algorithms |
+| `HspDecompiler.Cli`  | Command-line interface                   |
+| `HspDecompiler.Gui`  | Avalonia cross-platform GUI              |
+
+## Dictionary.csv
+
+`Dictionary.csv` must be present alongside the executable. It defines HSP3 built-in commands, functions, and parameter types used during decompilation.
+
+## History
+
+| Date       | Name                             | Version | Notes                                                                 |
+| ---------- | -------------------------------- | ------- | --------------------------------------------------------------------- |
+| 2006-01-28 | HSP Decompiler (HSP逆コンパイラ) | 1.0     | Initially released as shareware by Kitsutsuki                         |
+| 2007-09-10 | HSP Decompiler                   | 1.1     | HSP3 support added                                                    |
+| 2010-09-12 | HSP Decompiler                   | 1.2     | Released as PDS/OSS; bug fixes                                        |
+| 2012-01-13 | HSPdeco                          | 1.0     | `.ax` decode feature exposed; bug fixes. Author: minorshift (Mia)     |
+| 2015-12-15 | HSPdecom                         | 1.0     | Variable name restoration, dictionary data. Authors: Sitapuru, YSRKEN |
+| 2016-08-16 | HSPdecom                         | 1.1     | Decryption patches applied; republished on GitHub                     |
+| 2026       | deHSP                            | 2.0     | .NET 8.0 + Avalonia; CLI tool; cross-platform                         |
+
+## License
+
+PDS (Public Domain Software) for the HSPdecom parts.
+HSPdeco parts under zlib/libpng license.
+See the LICENSE file for details.
