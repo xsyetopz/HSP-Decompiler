@@ -93,7 +93,7 @@ dotnet run --project src/HspDecompiler.Gui
 | 2012/01/13 | HSPdeco         | 1.0        | axファイルのデコード機能を開放、バグ修正                   |
 | 2015/12/15 | HSPdecom        | 1.0        | 変数名復元をサポート、辞書データ追加                       |
 | 2016/08/16 | HSPdecom        | 1.1        | パッチを全て付加、GitHubに上げ直し                         |
-| 2026       | deHSP           | 2.0        | .NET 8.0 + Avalonia、CLIツール、クロスプラットフォーム対応 |
+| 2026-03-13 | deHSP           | 2.0        | .NET 8.0 + Avalonia、CLIツール、クロスプラットフォーム対応 |
 
 ## ライセンス
 

@@ -82,7 +82,7 @@ Or drag-and-drop files onto the application window.
 | 2012-01-13 | HSPdeco                          | 1.0     | `.ax` decode feature exposed; bug fixes. Author: minorshift (Mia)     |
 | 2015-12-15 | HSPdecom                         | 1.0     | Variable name restoration, dictionary data. Authors: Sitapuru, YSRKEN |
 | 2016-08-16 | HSPdecom                         | 1.1     | Decryption patches applied; republished on GitHub                     |
-| 2026       | deHSP                            | 2.0     | .NET 8.0 + Avalonia; CLI tool; cross-platform                         |
+| 2026-03-13 | deHSP                            | 2.0     | .NET 8.0 + Avalonia; CLI tool; cross-platform                         |
 
 ## License
 
