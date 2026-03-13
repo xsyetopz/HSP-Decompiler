@@ -88,4 +88,4 @@ Or drag-and-drop files onto the application window.
 
 PDS (Public Domain Software) for the HSPdecom parts.
 HSPdeco parts under zlib/libpng license.
-See the LICENSE file for details.
+See the [LICENSE](LICENSE) file for details.

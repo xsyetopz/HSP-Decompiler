@@ -98,4 +98,4 @@ dotnet run --project src/HspDecompiler.Gui
 ## ライセンス
 
 HSPdecom部分はPDSライセンス、HSPdeco部分はzlib/libpngライセンスです。
-詳しくはLICENSEファイルを参照してください。
+詳しくは[LICENSE](LICENSE)ファイルを参照してください。
