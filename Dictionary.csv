@@ -1,4 +1,4 @@
-#HSP Ver.3.5beta4用辞書。HSPdecom.exeの動作に必須
+#HSP Ver.3.5beta4 dictionary data. Required for HSPdecom.exe
 
 #Keys,,Values,,
 #TypeCode,ValueCode,Name,Type,ExtraFlag
@@ -212,7 +212,7 @@ $Code,,,,
 0x0F,0x000E,dup,HspFunction,,
 0x0F,0x000F,dupptr,HspFunction,,
 0x0F,0x001A,mcall,McallStatement,,
-#3.3追加データ
+#Data added in HSP 3.3
 0x08,0x002A,split,HspFunction
 0x09,0x0038,gradf,HspFunction
 0x09,0x0039,objimage,HspFunction
@@ -222,11 +222,11 @@ $Code,,,,
 0x09,0x003D,celdiv,HspFunction
 0x09,0x003E,celput,HspFunction
 0x0D,0x0105,strtrim,HspFunction
-#3.3追加終わり
+#End of HSP 3.3 additions
 #---
 0x0D,0x018A,powf,HspFunction
 0x0F,0x0015,alloc,HspFunction
-0x0F,0x001B,HSP未実装,HspFunction
+0x0F,0x001B,hsp_internal,HspFunction
 0x0F,0x001C,logmes,HspFunction
 0x0F,0x001D,newlab,HspFunction
 0x0F,0x001E,resume,HspFunction
