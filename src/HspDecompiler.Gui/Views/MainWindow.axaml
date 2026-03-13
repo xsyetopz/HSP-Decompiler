@@ -1,0 +1,48 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:HspDecompiler.Gui.ViewModels"
+        x:Class="HspDecompiler.Gui.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="deHSP - HSP Decompiler"
+        Width="700" Height="400"
+        MinWidth="500" MinHeight="300"
+        DragDrop.AllowDrop="True">
+    <Design.DataContext>
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File" x:Name="MenuFile">
+                <MenuItem Header="Open..." x:Name="MenuOpen" />
+                <Separator />
+                <MenuItem Header="Exit" x:Name="MenuExit" />
+            </MenuItem>
+            <MenuItem Header="Help" x:Name="MenuHelp">
+                <MenuItem Header="About..." x:Name="MenuAbout" />
+            </MenuItem>
+        </Menu>
+        <Grid ColumnDefinitions="*,Auto,*">
+            <TextBox Grid.Column="0"
+                     Text="{Binding LogText}"
+                     IsReadOnly="True"
+                     AcceptsReturn="True"
+                     TextWrapping="Wrap"
+                     VerticalContentAlignment="Top"
+                     Margin="4" />
+            <GridSplitter Grid.Column="1" Width="4" />
+            <DataGrid Grid.Column="2"
+                      x:Name="FileGrid"
+                      ItemsSource="{Binding DpmFiles}"
+                      IsReadOnly="True"
+                      AutoGenerateColumns="False"
+                      Margin="4">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Filename" Binding="{Binding FileName}" Width="*" />
+                    <DataGridCheckBoxColumn Header="Encrypted" Binding="{Binding IsEncrypted}" Width="80" />
+                    <DataGridTextColumn Header="Offset" Binding="{Binding FileOffset}" Width="100" />
+                    <DataGridTextColumn Header="Size" Binding="{Binding FileSize}" Width="100" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </DockPanel>
+</Window>
