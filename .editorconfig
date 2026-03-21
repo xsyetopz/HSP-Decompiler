@@ -10,73 +10,137 @@ insert_final_newline = true
 tab_width = 4
 
 [*.{cs,csx}]
-# Namespace and using
-csharp_style_namespace_declarations = block_scoped:warning
+csharp_style_namespace_declarations = file_scoped:warning
 csharp_using_directive_placement = outside_namespace:warning
 dotnet_sort_system_directives_first = true
 dotnet_separate_import_directive_groups = false
-
-# var preferences — match existing style: var when type is apparent
-csharp_style_var_for_built_in_types = false:suggestion
-csharp_style_var_when_type_is_apparent = true:suggestion
-csharp_style_var_elsewhere = false:suggestion
-
-# Expression-level preferences
-csharp_prefer_simple_using_statement = false:none
-csharp_style_prefer_switch_expression = true:suggestion
-csharp_style_prefer_pattern_matching = true:suggestion
-dotnet_style_prefer_conditional_expression_over_assignment = true:suggestion
-
-# Braces
+## --------------------------------------------------------------------------------
+csharp_style_var_for_built_in_types = false:warning
+csharp_style_var_when_type_is_apparent = true:warning
+csharp_style_var_elsewhere = false:warning
+## --------------------------------------------------------------------------------
+csharp_style_expression_bodied_methods = when_on_single_line:warning
+csharp_style_expression_bodied_constructors = false:warning
+csharp_style_expression_bodied_operators = when_on_single_line:warning
+csharp_style_expression_bodied_properties = true:warning
+csharp_style_expression_bodied_indexers = true:warning
+csharp_style_expression_bodied_accessors = true:warning
+csharp_style_expression_bodied_lambdas = true:warning
+csharp_style_expression_bodied_local_functions = when_on_single_line:warning
+## --------------------------------------------------------------------------------
+csharp_style_prefer_pattern_matching = true:warning
+csharp_style_prefer_switch_expression = true:warning
+csharp_style_prefer_not_pattern = true:warning
+csharp_style_prefer_extended_property_pattern = true:warning
+csharp_style_prefer_null_check_over_type_check = true:warning
+## --------------------------------------------------------------------------------
+csharp_style_prefer_primary_constructors = true:warning
+csharp_style_prefer_collection_expression = true:warning
+csharp_style_prefer_top_level_statements = true:warning
+csharp_style_implicit_object_creation_when_type_is_apparent = true:warning
+csharp_style_prefer_local_over_anonymous_function = true:warning
+csharp_style_prefer_tuple_swap = true:warning
+csharp_style_prefer_utf8_string_literals = true:warning
+csharp_style_prefer_readonly_struct = true:warning
+csharp_style_prefer_readonly_struct_member = true:warning
+## --------------------------------------------------------------------------------
+csharp_style_throw_expression = true:warning
+csharp_style_conditional_delegate_call = true:warning
+dotnet_style_null_propagation = true:warning
+dotnet_style_coalesce_expression = true:warning
+dotnet_style_prefer_is_null_check_for_reference_equality_checks = true:warning
+## --------------------------------------------------------------------------------
+csharp_prefer_simple_using_statement = true:warning
+csharp_style_prefer_index_operator = true:warning
+csharp_style_prefer_range_operator = true:warning
+csharp_style_deconstructed_variable_declaration = true:warning
+dotnet_style_prefer_conditional_expression_over_assignment = true:warning
+dotnet_style_prefer_conditional_expression_over_return = true:warning
+dotnet_style_prefer_compound_assignment = true:warning
+dotnet_style_prefer_simplified_interpolation = true:warning
+dotnet_style_prefer_inferred_tuple_names = true:warning
+dotnet_style_prefer_inferred_anonymous_type_member_names = true:warning
+dotnet_style_collection_initializer = true:warning
+dotnet_style_object_initializer = true:warning
+dotnet_style_explicit_tuple_names = true:warning
+## --------------------------------------------------------------------------------
+csharp_preferred_modifier_order = public,private,protected,internal,file,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,required,volatile,async:warning
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:warning
+dotnet_style_readonly_field = true:warning
+csharp_prefer_static_local_function = true:warning
+csharp_style_prefer_method_group_conversion = true:warning
+## --------------------------------------------------------------------------------
 csharp_prefer_braces = true:warning
-
-# this. qualification
+## --------------------------------------------------------------------------------
 dotnet_style_qualification_for_field = false:warning
 dotnet_style_qualification_for_property = false:warning
 dotnet_style_qualification_for_method = false:warning
 dotnet_style_qualification_for_event = false:warning
-
-# Naming conventions
-dotnet_naming_rule.private_fields_should_be_camel_case.severity = suggestion
-dotnet_naming_rule.private_fields_should_be_camel_case.symbols = private_fields
-dotnet_naming_rule.private_fields_should_be_camel_case.style = camel_case_underscore
+## --------------------------------------------------------------------------------
+dotnet_naming_rule.private_fields_should_be_underscore_camel.severity = warning
+dotnet_naming_rule.private_fields_should_be_underscore_camel.symbols = private_fields
+dotnet_naming_rule.private_fields_should_be_underscore_camel.style = camel_case_underscore
 dotnet_naming_symbols.private_fields.applicable_kinds = field
-dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private,protected,internal,protected_internal,private_protected
 dotnet_naming_style.camel_case_underscore.required_prefix = _
 dotnet_naming_style.camel_case_underscore.capitalization = camel_case
-
+## --------------------------------------------------------------------------------
+dotnet_naming_rule.static_fields_should_be_underscore_s_camel.severity = warning
+dotnet_naming_rule.static_fields_should_be_underscore_s_camel.symbols = static_fields
+dotnet_naming_rule.static_fields_should_be_underscore_s_camel.style = s_camel_case
+dotnet_naming_symbols.static_fields.applicable_kinds = field
+dotnet_naming_symbols.static_fields.applicable_accessibilities = private,protected,internal
+dotnet_naming_symbols.static_fields.required_modifiers = static
+dotnet_naming_style.s_camel_case.required_prefix = s_
+dotnet_naming_style.s_camel_case.capitalization = camel_case
+## --------------------------------------------------------------------------------
 dotnet_naming_rule.constants_should_be_pascal_case.severity = warning
 dotnet_naming_rule.constants_should_be_pascal_case.symbols = constants
 dotnet_naming_rule.constants_should_be_pascal_case.style = pascal_case
 dotnet_naming_symbols.constants.applicable_kinds = field
 dotnet_naming_symbols.constants.required_modifiers = const
 dotnet_naming_style.pascal_case.capitalization = pascal_case
-
-# Analyzer severities — enabled
-dotnet_diagnostic.CA1050.severity = warning
-dotnet_diagnostic.CA1310.severity = warning
-dotnet_diagnostic.CA1510.severity = warning
-dotnet_diagnostic.CA1822.severity = suggestion
-dotnet_diagnostic.CA1824.severity = warning
-dotnet_diagnostic.CA2208.severity = warning
-dotnet_diagnostic.IDE0005.severity = warning
-
-# Analyzer severities — suppressed (not applicable to this project)
-dotnet_diagnostic.CA1069.severity = none        # Duplicate enum values: HSP spec has Plugin = Dll
-dotnet_diagnostic.CA1304.severity = none        # Specify CultureInfo: decompiler outputs HSP source, not localized text
-dotnet_diagnostic.CA1305.severity = none        # Specify IFormatProvider: same rationale
-dotnet_diagnostic.CA1311.severity = none        # Specify culture: same rationale
-dotnet_diagnostic.CA1711.severity = none        # Identifier ends in Flags: HspCodeExtraFlags matches HSP spec
-dotnet_diagnostic.CA1716.severity = none        # Identifier matches keyword: HSP spec names
-dotnet_diagnostic.CA1720.severity = none        # Identifier contains type name: HSP enum members (String, Double, Integer)
-dotnet_diagnostic.CA1805.severity = none        # Explicit default init: readability preference, fields like `= null` make nullability intent clear
-dotnet_diagnostic.CA1830.severity = suggestion  # Prefer strongly typed Append: low priority
-dotnet_diagnostic.CA1834.severity = suggestion  # Use StringBuilder.Append(char): low priority
-dotnet_diagnostic.CA1859.severity = suggestion  # Use concrete types: may reduce flexibility
-dotnet_diagnostic.CA1863.severity = none        # Use char overload: micro-optimization, noisy
-dotnet_diagnostic.CA1866.severity = suggestion  # Use char overload of EndsWith: low priority
-dotnet_diagnostic.CA2007.severity = none        # ConfigureAwait: not a library
-dotnet_diagnostic.CA2201.severity = none        # Do not raise reserved exception types: existing patterns are intentional
+## --------------------------------------------------------------------------------
+dotnet_naming_rule.interfaces_start_with_i.severity = warning
+dotnet_naming_rule.interfaces_start_with_i.symbols = interfaces
+dotnet_naming_rule.interfaces_start_with_i.style = i_prefix_pascal
+dotnet_naming_symbols.interfaces.applicable_kinds = interface
+dotnet_naming_style.i_prefix_pascal.required_prefix = I
+dotnet_naming_style.i_prefix_pascal.capitalization = pascal_case
+## --------------------------------------------------------------------------------
+dotnet_naming_rule.type_params_start_with_t.severity = warning
+dotnet_naming_rule.type_params_start_with_t.symbols = type_parameters
+dotnet_naming_rule.type_params_start_with_t.style = t_prefix_pascal
+dotnet_naming_symbols.type_parameters.applicable_kinds = type_parameter
+dotnet_naming_style.t_prefix_pascal.required_prefix = T
+dotnet_naming_style.t_prefix_pascal.capitalization = pascal_case
+## --------------------------------------------------------------------------------
+dotnet_diagnostic.CA1050.severity = warning   # Declare types in namespaces
+dotnet_diagnostic.CA1310.severity = warning   # Specify StringComparison
+dotnet_diagnostic.CA1510.severity = warning   # Use ArgumentNullException.ThrowIfNull
+dotnet_diagnostic.CA1304.severity = warning   # Specify CultureInfo
+dotnet_diagnostic.CA1305.severity = warning   # Specify IFormatProvider
+dotnet_diagnostic.CA1311.severity = warning   # Specify culture or use invariant
+dotnet_diagnostic.CA1716.severity = warning   # Identifier matches keyword
+dotnet_diagnostic.CA1720.severity = warning   # Identifier contains type name
+dotnet_diagnostic.CA1805.severity = warning   # Do not initialize unnecessarily
+dotnet_diagnostic.CA1822.severity = warning   # Mark members as static
+dotnet_diagnostic.CA1824.severity = warning   # Mark assemblies with NeutralResourcesLanguageAttribute
+dotnet_diagnostic.CA1830.severity = warning   # Prefer strongly typed Append
+dotnet_diagnostic.CA1834.severity = warning   # Use StringBuilder.Append(char)
+dotnet_diagnostic.CA1859.severity = warning   # Use concrete types for improved performance
+dotnet_diagnostic.CA1863.severity = warning   # Use char overload
+dotnet_diagnostic.CA1866.severity = warning   # Use char overload of EndsWith
+dotnet_diagnostic.CA2007.severity = warning   # Consider calling ConfigureAwait
+dotnet_diagnostic.CA2201.severity = warning   # Do not raise reserved exception types
+dotnet_diagnostic.CA2208.severity = warning   # Instantiate argument exceptions correctly
+dotnet_diagnostic.IDE0005.severity = warning  # Remove unnecessary usings
+dotnet_diagnostic.IDE0010.severity = warning  # Add missing cases to switch
+dotnet_diagnostic.IDE0050.severity = warning  # Convert anonymous type to tuple
+dotnet_diagnostic.IDE0060.severity = warning  # Remove unused parameters
+dotnet_diagnostic.IDE0072.severity = warning  # Add missing cases to switch expression
+dotnet_diagnostic.IDE0090.severity = warning  # Use 'new(...)'
+dotnet_diagnostic.IDE0130.severity = warning  # Namespace does not match folder structure
 
 [*.{xml,csproj,props,targets,resx}]
 indent_size = 2
