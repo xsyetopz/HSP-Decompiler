@@ -6,6 +6,7 @@ namespace HspDecompiler.Core.Ax3.Data.Token;
 internal sealed class VariableToken : OperandToken
 {
     private VariableToken() { }
+
     internal VariableToken(VariablePrimitive var)
     {
         _primitive = var;

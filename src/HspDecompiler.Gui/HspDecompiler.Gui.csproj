@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
@@ -36,5 +35,4 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Strings.ja.resx" />
   </ItemGroup>
-
 </Project>

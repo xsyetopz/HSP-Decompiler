@@ -5,14 +5,10 @@ namespace HspDecompiler.Core.Exceptions;
 public sealed class HspDecoderException : Exception
 {
     public HspDecoderException()
-        : base()
-    {
-    }
+        : base() { }
 
     public HspDecoderException(string message)
-        : base(message)
-    {
-    }
+        : base(message) { }
 
     public HspDecoderException(string source, string message)
         : base(message)
@@ -21,9 +17,7 @@ public sealed class HspDecoderException : Exception
     }
 
     public HspDecoderException(string message, Exception innerException)
-        : base(message, innerException)
-    {
-    }
+        : base(message, innerException) { }
 
     public HspDecoderException(string source, string message, Exception innerException)
         : base(message, innerException)

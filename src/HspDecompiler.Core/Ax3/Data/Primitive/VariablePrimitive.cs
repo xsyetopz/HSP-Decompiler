@@ -6,10 +6,9 @@ namespace HspDecompiler.Core.Ax3.Data.Primitive;
 internal abstract class VariablePrimitive : OperandPrimitive
 {
     protected VariablePrimitive() { }
+
     internal VariablePrimitive(PrimitiveTokenDataSet dataSet)
-        : base(dataSet)
-    {
-    }
+        : base(dataSet) { }
 }
 
 internal sealed class GlobalVariablePrimitive : VariablePrimitive
@@ -17,6 +16,7 @@ internal sealed class GlobalVariablePrimitive : VariablePrimitive
     private readonly string? _varName;
 
     private GlobalVariablePrimitive() { }
+
     internal GlobalVariablePrimitive(PrimitiveTokenDataSet dataSet)
         : base(dataSet)
     {
@@ -40,6 +40,7 @@ internal sealed class GlobalVariablePrimitive : VariablePrimitive
 internal sealed class ParameterPrimitive : VariablePrimitive
 {
     private ParameterPrimitive() { }
+
     internal ParameterPrimitive(PrimitiveTokenDataSet dataSet)
         : base(dataSet)
     {
@@ -51,5 +52,6 @@ internal sealed class ParameterPrimitive : VariablePrimitive
     }
 
     private readonly Param? _param;
+
     public override string ToString() => _param != null ? _param.ParamName : DefaultName;
 }

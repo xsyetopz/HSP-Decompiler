@@ -8,13 +8,16 @@ internal enum UsedllType
 {
     None = 0x00,
     uselib = 0x01,
-    usecom = 0x02
+    usecom = 0x02,
 }
 
 internal sealed class Usedll : Preprocessor
 {
     private Usedll() { }
-    private Usedll(int index) : base(index) { }
+
+    private Usedll(int index)
+        : base(index) { }
+
     private string? _name;
     private string? _clsName;
     private int _type;
@@ -22,10 +25,7 @@ internal sealed class Usedll : Preprocessor
 
     internal static Usedll FromBinaryReader(BinaryReader reader, AxData parent, int index)
     {
-        var ret = new Usedll(index)
-        {
-            _type = reader.ReadInt32()
-        };
+        var ret = new Usedll(index) { _type = reader.ReadInt32() };
         int nameOffset = reader.ReadInt32();
         ret._int2 = reader.ReadInt32();
         int clsNameOffset = reader.ReadInt32();
@@ -49,12 +49,13 @@ internal sealed class Usedll : Preprocessor
 
     private readonly List<Function> _functions = new();
 
-    internal UsedllType Type => _type switch
-    {
-        1 => UsedllType.uselib,
-        4 => UsedllType.usecom,
-        _ => UsedllType.None,
-    };
+    internal UsedllType Type =>
+        _type switch
+        {
+            1 => UsedllType.uselib,
+            4 => UsedllType.usecom,
+            _ => UsedllType.None,
+        };
 
     public override string ToString()
     {
@@ -102,6 +103,7 @@ internal sealed class Usedll : Preprocessor
     }
 
     internal void AddFunction(Function ret) => _functions.Add(ret);
+
     internal List<Function> GetFunctions()
     {
         if ((Type == UsedllType.usecom) && (_functions.Count != 0))

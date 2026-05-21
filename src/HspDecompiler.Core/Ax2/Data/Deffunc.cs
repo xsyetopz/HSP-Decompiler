@@ -29,7 +29,10 @@ internal struct Deffunc
         string hiki = "";
         if (_hikiCount >= 1)
         {
-            hiki = (_hikiType & 1) != 0 ? "val" : (_hikiType & 2) != 0 ? "str" : "int";
+            hiki =
+                (_hikiType & 1) != 0 ? "val"
+                : (_hikiType & 2) != 0 ? "str"
+                : "int";
         }
         if (_hikiCount >= 2)
         {

@@ -36,7 +36,10 @@ internal class Function : Preprocessor
     private const int LabelIndexFunc2 = 6;
 
     private Function() { }
-    private Function(int index) : base(index) { }
+
+    private Function(int index)
+        : base(index) { }
+
     private int _dllIndex;
     private int _functionIndex;
     private List<Param> _functionParams = new();
@@ -51,7 +54,7 @@ internal class Function : Preprocessor
         var ret = new Function(index)
         {
             _dllIndex = reader.ReadInt16(),
-            _functionIndex = reader.ReadInt16()
+            _functionIndex = reader.ReadInt16(),
         };
 
         int paramStart = reader.ReadInt32();
@@ -103,33 +106,38 @@ internal class Function : Preprocessor
 
     internal bool IsModuleFunction => Type == FunctionType.module;
     internal bool IsComFunction => Type == FunctionType.comfunc;
-    internal bool IsUserFunction => Type switch
-    {
-        FunctionType.deffunc or FunctionType.defcfunc => true,
-        FunctionType.NULL => throw new NotImplementedException(),
-        FunctionType.func => throw new NotImplementedException(),
-        FunctionType.cfunc => throw new NotImplementedException(),
-        FunctionType.comfunc => throw new NotImplementedException(),
-        FunctionType.module => throw new NotImplementedException(),
-        _ => false,
-    };
+    internal bool IsUserFunction =>
+        Type switch
+        {
+            FunctionType.deffunc or FunctionType.defcfunc => true,
+            FunctionType.NULL => throw new NotImplementedException(),
+            FunctionType.func => throw new NotImplementedException(),
+            FunctionType.cfunc => throw new NotImplementedException(),
+            FunctionType.comfunc => throw new NotImplementedException(),
+            FunctionType.module => throw new NotImplementedException(),
+            _ => false,
+        };
 
-    internal bool IsDllFunction => Type switch
-    {
-        FunctionType.func or FunctionType.cfunc => true,
-        FunctionType.NULL => throw new NotImplementedException(),
-        FunctionType.deffunc => throw new NotImplementedException(),
-        FunctionType.defcfunc => throw new NotImplementedException(),
-        FunctionType.comfunc => throw new NotImplementedException(),
-        FunctionType.module => throw new NotImplementedException(),
-        _ => false,
-    };
+    internal bool IsDllFunction =>
+        Type switch
+        {
+            FunctionType.func or FunctionType.cfunc => true,
+            FunctionType.NULL => throw new NotImplementedException(),
+            FunctionType.deffunc => throw new NotImplementedException(),
+            FunctionType.defcfunc => throw new NotImplementedException(),
+            FunctionType.comfunc => throw new NotImplementedException(),
+            FunctionType.module => throw new NotImplementedException(),
+            _ => false,
+        };
 
     private string? _defaultName;
 
     internal string? DefaultName => _defaultName;
 
-    internal Function? ParentModule => _functionParams.Count == 0 ? null : !_functionParams[0].IsModuleType ? null : _functionParams[0].Module;
+    internal Function? ParentModule =>
+        _functionParams.Count == 0 ? null
+        : !_functionParams[0].IsModuleType ? null
+        : _functionParams[0].Module;
     private string? _name;
     private Label? _label;
     private Usedll? _dll;
@@ -179,9 +187,11 @@ internal class Function : Preprocessor
             return FunctionType.NULL;
         }
     }
-    internal FunctionFlags Flags => (_flags == 1) && (_dllIndex == DllIndexDeffunc)
-                ? FunctionFlags.onexit
-                : (_dllIndex >= 0) && (_labelIndex == LabelIndexOnExit) ? FunctionFlags.onexit : FunctionFlags.NULL;
+    internal FunctionFlags Flags =>
+        (_flags == 1) && (_dllIndex == DllIndexDeffunc) ? FunctionFlags.onexit
+        : (_dllIndex >= 0) && (_labelIndex == LabelIndexOnExit) ? FunctionFlags.onexit
+        : FunctionFlags.NULL;
+
     internal void SetName(string name) => _name = name;
 
     internal string? FunctionName
@@ -195,7 +205,9 @@ internal class Function : Preprocessor
 
             if (_defaultName == null)
             {
-                return Type == FunctionType.comfunc ? "comfunc_" + _index.ToString(CultureInfo.InvariantCulture) : null;
+                return Type == FunctionType.comfunc
+                    ? "comfunc_" + _index.ToString(CultureInfo.InvariantCulture)
+                    : null;
             }
             switch (Type)
             {

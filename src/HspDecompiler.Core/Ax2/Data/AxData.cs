@@ -11,9 +11,7 @@ internal class AxData
 {
     private const int LabelIndexBaseOffset = 0x1000;
 
-    internal AxData()
-    {
-    }
+    internal AxData() { }
 
     private Header? _header;
     private Label[]? _labels;
@@ -53,7 +51,11 @@ internal class AxData
         }
         catch (Exception e)
         {
-            throw new HspDecoderException("AxHeader", Strings.UnexpectedErrorDuringHeaderAnalysis, e);
+            throw new HspDecoderException(
+                "AxHeader",
+                Strings.UnexpectedErrorDuringHeaderAnalysis,
+                e
+            );
         }
         if (_header == null)
         {
@@ -389,9 +391,13 @@ internal class AxData
         return line;
     }
 
-    internal string? GetDeffuncName(int index) => _deffuncs == null || (index >= _deffuncs.Length) || (index < 0) ? null : _deffuncs[index].Name;
+    internal string? GetDeffuncName(int index) =>
+        _deffuncs == null || (index >= _deffuncs.Length) || (index < 0)
+            ? null
+            : _deffuncs[index].Name;
 
-    internal string? GetFuncName(int index) => _funcs == null || (index >= _funcs.Length) || (index < 0) ? null : _funcs[index].Name;
+    internal string? GetFuncName(int index) =>
+        _funcs == null || (index >= _funcs.Length) || (index < 0) ? null : _funcs[index].Name;
 
     internal List<string> GetLines() => _lines;
 }

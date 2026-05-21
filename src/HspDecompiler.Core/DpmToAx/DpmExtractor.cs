@@ -7,9 +7,7 @@ namespace HspDecompiler.Core.DpmToAx;
 
 internal sealed class DpmExtractor
 {
-    private DpmExtractor()
-    {
-    }
+    private DpmExtractor() { }
 
     internal static DpmExtractor? FromBinaryReader(BinaryReader reader)
     {
@@ -168,9 +166,9 @@ internal sealed class DpmExtractor
     {
         _isDpm2 = true;
         _reader!.ReadInt32(); // DPM2 magic
-        int fileCount = _reader.ReadInt32();          // dword[1]: entry count
-        int stringTableOffset = _reader.ReadInt32();  // dword[2]: string table offset
-        int dataSectionOffset = _reader.ReadInt32();  // dword[3]: data section offset
+        int fileCount = _reader.ReadInt32(); // dword[1]: entry count
+        int stringTableOffset = _reader.ReadInt32(); // dword[2]: string table offset
+        int dataSectionOffset = _reader.ReadInt32(); // dword[3]: data section offset
         _reader.ReadInt32(); // dword[4]: string table size
         _reader.ReadInt32(); // dword[5]
         _crcSeed = _reader.ReadInt32(); // dword[6]: CRC seed
@@ -198,7 +196,7 @@ internal sealed class DpmExtractor
             var file = new DpmFileEntry();
             _reader.ReadInt32(); // [0-3]: type/flags
             int nameOffset = _reader.ReadInt32(); // [4-7]: filename string offset
-            file.FileSize = _reader.ReadInt32();  // [8-11]: file size
+            file.FileSize = _reader.ReadInt32(); // [8-11]: file size
             _reader.ReadInt32(); // [12-15]
             file.FileOffset = _reader.ReadInt32(); // [16-19]: data offset (relative to data section)
             _reader.ReadInt32(); // [20-23]
@@ -218,7 +216,14 @@ internal sealed class DpmExtractor
                 }
             }
 
-            if ((dataSectionOffset + file.FileOffset + file.FileSize) > _streamLength)
+            long absoluteOffset = dataSectionOffset + (long)file.FileOffset;
+            long absoluteEnd = absoluteOffset + file.FileSize;
+            if (
+                file.FileOffset < 0
+                || file.FileSize < 0
+                || absoluteOffset < dataSectionOffset
+                || absoluteEnd > _streamLength
+            )
             {
                 return false;
             }

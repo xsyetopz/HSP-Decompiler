@@ -44,7 +44,10 @@ internal class HspCryptoTransform
         return plain;
     }
 
-    internal static HspCryptoTransform? CrackEncryption(byte[] encrypted, Func<byte[], bool> validator)
+    internal static HspCryptoTransform? CrackEncryption(
+        byte[] encrypted,
+        Func<byte[], bool> validator
+    )
     {
         byte[] plain3 = System.Text.Encoding.ASCII.GetBytes(Hsp3Magic);
         HspCryptoTransform? hsp3crypto = CrackEncryption(plain3, encrypted, validator);
@@ -58,7 +61,11 @@ internal class HspCryptoTransform
         return hsp2crypto;
     }
 
-    internal static HspCryptoTransform? CrackEncryption(byte[] plain, byte[] encrypted, Func<byte[], bool> validator)
+    internal static HspCryptoTransform? CrackEncryption(
+        byte[] plain,
+        byte[] encrypted,
+        Func<byte[], bool> validator
+    )
     {
         int count = Math.Min(plain.Length, encrypted.Length);
         if (count < 2)
@@ -90,7 +97,12 @@ internal class HspCryptoTransform
             byte add = (byte)(i & 0x7F);
             xoradd._xorSum = (i >= 0x80);
             xoradd._addByte = add;
-            xoradd._xorByte = XorAddTransform.GetXorByte(add, difBuffer[0], encrypted[0], xoradd._xorSum);
+            xoradd._xorByte = XorAddTransform.GetXorByte(
+                add,
+                difBuffer[0],
+                encrypted[0],
+                xoradd._xorSum
+            );
             for (int index = 1; index < count; index++)
             {
                 if (encrypted[index] != xoradd.Encode(difBuffer[index]))
@@ -101,10 +113,7 @@ internal class HspCryptoTransform
             }
             if (ok)
             {
-                var decryptor = new HspCryptoTransform
-                {
-                    _xorAdd = xoradd
-                };
+                var decryptor = new HspCryptoTransform { _xorAdd = xoradd };
                 byte[] buffer = (byte[])encrypted.Clone();
                 buffer = decryptor.Decryption(buffer);
 
@@ -117,10 +126,7 @@ internal class HspCryptoTransform
         }
         if (transformList.Count == 1)
         {
-            var ret = new HspCryptoTransform
-            {
-                _xorAdd = transformList[0]
-            };
+            var ret = new HspCryptoTransform { _xorAdd = transformList[0] };
             return ret;
         }
         return null;

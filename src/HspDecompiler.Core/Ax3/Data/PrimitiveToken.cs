@@ -20,6 +20,7 @@ internal class PrimitiveTokenDataSet
 internal abstract class PrimitiveToken
 {
     protected PrimitiveToken() { }
+
     internal PrimitiveToken(PrimitiveTokenDataSet dataSet)
     {
         _parent = dataSet._parent;
@@ -49,13 +50,19 @@ internal abstract class PrimitiveToken
     private string? _name;
     private readonly int _tokenOffset;
 
-    internal bool HasGhostLabel => !IsLineHead ? false : (_codeExtraFlags & HspCodeExtraOptions.HasGhostLabel) == HspCodeExtraOptions.HasGhostLabel;
+    internal bool HasGhostLabel =>
+        !IsLineHead
+            ? false
+            : (_codeExtraFlags & HspCodeExtraOptions.HasGhostLabel)
+                == HspCodeExtraOptions.HasGhostLabel;
     internal HspCodeType CodeType => _codeType;
     internal HspCodeExtraOptions CodeExtraFlags => _codeExtraFlags;
-    internal int OperatorPriority => _codeType != HspCodeType.Operator
-                ? throw new InvalidOperationException(Strings.OperatorPriorityOnNonOperator)
-                : _operatorPriority;
-    internal bool HasLongTypeValue => ((_flag & HspTokenFlag.LongTypeValue) == HspTokenFlag.LongTypeValue);
+    internal int OperatorPriority =>
+        _codeType != HspCodeType.Operator
+            ? throw new InvalidOperationException(Strings.OperatorPriorityOnNonOperator)
+            : _operatorPriority;
+    internal bool HasLongTypeValue =>
+        ((_flag & HspTokenFlag.LongTypeValue) == HspTokenFlag.LongTypeValue);
     internal bool IsParamHead => ((_flag & HspTokenFlag.ParamHead) == HspTokenFlag.ParamHead);
     internal bool IsLineHead => ((_flag & HspTokenFlag.LineHead) == HspTokenFlag.LineHead);
 

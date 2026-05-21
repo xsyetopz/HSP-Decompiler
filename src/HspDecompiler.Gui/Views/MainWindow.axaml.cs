@@ -83,16 +83,26 @@ public partial class MainWindow : Window
 
     private async void OnMenuOpen(object? sender, RoutedEventArgs e)
     {
-        System.Collections.Generic.IReadOnlyList<IStorageFile> files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
-        {
-            Title = Strings.OpenFileTitle,
-            AllowMultiple = false,
-            FileTypeFilter = new[]
-            {
-                new FilePickerFileType(Strings.HspFilesFilter) { Patterns = s_hspFilePatterns },
-                new FilePickerFileType(Strings.AllFilesFilter) { Patterns = s_allFilePatterns }
-            }
-        }).ConfigureAwait(false);
+        System.Collections.Generic.IReadOnlyList<IStorageFile> files = await StorageProvider
+            .OpenFilePickerAsync(
+                new FilePickerOpenOptions
+                {
+                    Title = Strings.OpenFileTitle,
+                    AllowMultiple = false,
+                    FileTypeFilter = new[]
+                    {
+                        new FilePickerFileType(Strings.HspFilesFilter)
+                        {
+                            Patterns = s_hspFilePatterns,
+                        },
+                        new FilePickerFileType(Strings.AllFilesFilter)
+                        {
+                            Patterns = s_allFilePatterns,
+                        },
+                    },
+                }
+            )
+            .ConfigureAwait(false);
         if (files.Count > 0)
         {
             string? path = files[0].TryGetLocalPath();
@@ -109,7 +119,10 @@ public partial class MainWindow : Window
         about.ShowDialog(this);
     }
 
-    private void OnDragOver(object? sender, DragEventArgs e) => e.DragEffects = e.Data.Contains(DataFormats.Files) ? DragDropEffects.Copy : DragDropEffects.None;
+    private void OnDragOver(object? sender, DragEventArgs e) =>
+        e.DragEffects = e.Data.Contains(DataFormats.Files)
+            ? DragDropEffects.Copy
+            : DragDropEffects.None;
 
     private async void OnDrop(object? sender, DragEventArgs e)
     {

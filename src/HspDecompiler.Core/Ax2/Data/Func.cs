@@ -26,5 +26,11 @@ internal struct Func
         set => _dllIndex = value;
     }
 
-    public override readonly string ToString() => "#func func_" + _name + " " + _name + " $" + _hikiType.ToString("x4", CultureInfo.InvariantCulture);
+    public override readonly string ToString() =>
+        "#func func_"
+        + _name
+        + " "
+        + _name
+        + " $"
+        + _hikiType.ToString("x4", CultureInfo.InvariantCulture);
 }

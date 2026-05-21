@@ -7,5 +7,10 @@ namespace HspDecompiler.Core.Abstractions;
 
 public interface IAxDecoder
 {
-    Task<List<string>> DecodeAsync(BinaryReader reader, IDecompilerLogger logger, IProgressReporter progress, CancellationToken ct = default);
+    Task<List<string>> DecodeAsync(
+        BinaryReader reader,
+        IDecompilerLogger logger,
+        IProgressReporter progress,
+        CancellationToken ct = default
+    );
 }

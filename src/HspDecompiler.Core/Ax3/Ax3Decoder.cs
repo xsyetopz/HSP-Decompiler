@@ -23,7 +23,12 @@ internal class Ax3Decoder : IAxDecoder
         set => _dictionary = value;
     }
 
-    public async Task<List<string>> DecodeAsync(BinaryReader reader, IDecompilerLogger logger, IProgressReporter progress, CancellationToken ct = default)
+    public async Task<List<string>> DecodeAsync(
+        BinaryReader reader,
+        IDecompilerLogger logger,
+        IProgressReporter progress,
+        CancellationToken ct = default
+    )
     {
         var data = new AxData();
         LexicalAnalyzer? lex = null;
@@ -44,7 +49,8 @@ internal class Ax3Decoder : IAxDecoder
             data.LoadEnd();
             logger.Write(Strings.SyntacticAnalysis);
             synt = new SyntacticAnalyzer();
-            lines = await synt.AnalyzeAsync(stream, data, logger, progress, ct).ConfigureAwait(false);
+            lines = await synt.AnalyzeAsync(stream, data, logger, progress, ct)
+                .ConfigureAwait(false);
             logger.Write(Strings.CreatingOutputFile);
             foreach (LogicalLine line in lines)
             {

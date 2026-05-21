@@ -1,4 +1,4 @@
-VERSION ?= 2.2.0
+VERSION ?= 2.2.1
 ARTIFACTS_DIR := artifacts
 
 RIDS := osx-x64 osx-arm64 win-x64 win-arm64 linux-x64 linux-arm64

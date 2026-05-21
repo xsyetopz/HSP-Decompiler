@@ -7,7 +7,9 @@ namespace HspDecompiler.Core.Ax3.Data.PP;
 internal class PlugIn : Preprocessor
 {
     private PlugIn() { }
-    private PlugIn(int index) : base(index) { }
+
+    private PlugIn(int index)
+        : base(index) { }
 
     private string? _dllName;
     private string? _exportName;
@@ -33,6 +35,7 @@ internal class PlugIn : Preprocessor
         get => _extendedTypeCount;
         set => _extendedTypeCount = value;
     }
+
     internal Cmd AddCmd(int methodIndex)
     {
         Cmd? cmd = null;
@@ -45,6 +48,7 @@ internal class PlugIn : Preprocessor
         _cmds.Add(methodIndex, cmd);
         return cmd;
     }
+
     internal Dictionary<int, Cmd> GetCmds() => _cmds;
 
     public override string ToString()

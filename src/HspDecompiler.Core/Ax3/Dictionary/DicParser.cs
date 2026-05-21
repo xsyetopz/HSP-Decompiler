@@ -13,7 +13,11 @@ internal static class DicParser
             if (str.StartsWith("0x", StringComparison.Ordinal))
             {
                 str = str[2..];
-                return Int32.Parse(str, System.Globalization.NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+                return Int32.Parse(
+                    str,
+                    System.Globalization.NumberStyles.HexNumber,
+                    CultureInfo.InvariantCulture
+                );
             }
             return Int32.Parse(str, CultureInfo.InvariantCulture);
         }
@@ -58,5 +62,6 @@ internal static class DicParser
         }
     }
 
-    internal static object StringToEnum(Type enumType, string str) => StringToEnum(enumType, str, 0);
+    internal static object StringToEnum(Type enumType, string str) =>
+        StringToEnum(enumType, str, 0);
 }

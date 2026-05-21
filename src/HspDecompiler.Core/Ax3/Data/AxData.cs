@@ -12,9 +12,16 @@ namespace HspDecompiler.Core.Ax3.Data;
 
 internal class AxData
 {
-    private static readonly CompositeFormat s_userFunctionNameFormat = CompositeFormat.Parse("{0}_{1}");
-    private static readonly CompositeFormat s_dllFunctionNameFormat = CompositeFormat.Parse("func_{0}");
-    private static readonly CompositeFormat s_comFunctionNameFormat = CompositeFormat.Parse("comfunc_{0}");
+    private static readonly CompositeFormat s_userFunctionNameFormat = CompositeFormat.Parse(
+        "{0}_{1}"
+    );
+    private static readonly CompositeFormat s_dllFunctionNameFormat = CompositeFormat.Parse(
+        "func_{0}"
+    );
+    private static readonly CompositeFormat s_comFunctionNameFormat = CompositeFormat.Parse(
+        "comfunc_{0}"
+    );
+
     // Fix #30: Named constants for HSP debug info markers
     private const byte DebugMarkerFileName = 252;
     private const byte DebugMarkerVariable = 253;
@@ -47,17 +54,35 @@ internal class AxData
 
     internal Label GetLabel(int index) => Labels[index];
 
-    internal Function? GetUserFunction(int index) => index < 0 ? null : index >= _functions.Count ? null : _functions[index];
+    internal Function? GetUserFunction(int index) =>
+        index < 0 ? null
+        : index >= _functions.Count ? null
+        : _functions[index];
 
-    internal Function? GetDllFunction(int index) => index < 0 ? null : index >= _functions.Count ? null : _functions[index];
+    internal Function? GetDllFunction(int index) =>
+        index < 0 ? null
+        : index >= _functions.Count ? null
+        : _functions[index];
 
-    internal Usedll? GetUsedll(int index) => index < 0 ? null : index >= _dlls.Count ? null : _dlls[index];
+    internal Usedll? GetUsedll(int index) =>
+        index < 0 ? null
+        : index >= _dlls.Count ? null
+        : _dlls[index];
 
-    internal Param? GetParam(int index) => index < 0 ? null : index >= _functionParams.Count ? null : _functionParams[index];
+    internal Param? GetParam(int index) =>
+        index < 0 ? null
+        : index >= _functionParams.Count ? null
+        : _functionParams[index];
 
-    internal string? GetVariableName(int index) => index < 0 ? null : index >= _variableName.Count ? null : _variableName[index];
+    internal string? GetVariableName(int index) =>
+        index < 0 ? null
+        : index >= _variableName.Count ? null
+        : _variableName[index];
 
-    internal Cmd? AddCmd(int pluginIndex, int methodIndex) => pluginIndex < 0 ? null : pluginIndex >= _plugIns.Count ? null : _plugIns[pluginIndex].AddCmd(methodIndex);
+    internal Cmd? AddCmd(int pluginIndex, int methodIndex) =>
+        pluginIndex < 0 ? null
+        : pluginIndex >= _plugIns.Count ? null
+        : _plugIns[pluginIndex].AddCmd(methodIndex);
 
     internal string ReadString(int offset, int max_count)
     {
@@ -105,7 +130,8 @@ internal class AxData
         return new string(arrayChars);
     }
 
-    internal string ReadStringLiteral(int offset) => ReadString((int)(_header!.LiteralStart + offset), (int)(_header.LiteralSize - offset));
+    internal string ReadStringLiteral(int offset) =>
+        ReadString((int)(_header!.LiteralStart + offset), (int)(_header.LiteralSize - offset));
 
     internal double ReadDoubleLiteral(int offset)
     {
@@ -184,9 +210,11 @@ internal class AxData
     private bool _isStarted;
 
     internal bool IsStarted => _isStarted;
+
     // Fix #17: removed unused setter
     internal BinaryReader? Reader => _reader;
     internal long StartOfCode => _header!.CodeStart + _seekOrigin;
+
     // Fix #18: removed unused setter
     internal Hsp3Dictionary? Dictionary => _dictionary;
 
@@ -209,7 +237,11 @@ internal class AxData
         }
         catch (SystemException e)
         {
-            throw new HspDecoderException("AxHeader", Strings.UnexpectedErrorDuringHeaderAnalysis, e);
+            throw new HspDecoderException(
+                "AxHeader",
+                Strings.UnexpectedErrorDuringHeaderAnalysis,
+                e
+            );
         }
         return;
     }
@@ -228,7 +260,10 @@ internal class AxData
 
         if (_header.RuntimeStart != 0)
         {
-            string runtimeName = ReadString((int)_header.RuntimeStart, (int)(_header.CodeStart - _header.RuntimeStart));
+            string runtimeName = ReadString(
+                (int)_header.RuntimeStart,
+                (int)(_header.CodeStart - _header.RuntimeStart)
+            );
             if (runtimeName != null)
             {
                 _runtime = new Runtime(runtimeName);
@@ -253,7 +288,8 @@ internal class AxData
         count = _header.ParameterCount;
         for (int i = 0; i < count; i++)
         {
-            long offset = _seekOrigin + _header.ParameterStart + ((int)HeaderDataSize.Parameter * i);
+            long offset =
+                _seekOrigin + _header.ParameterStart + ((int)HeaderDataSize.Parameter * i);
             _reader!.BaseStream.Seek(offset, SeekOrigin.Begin);
             _functionParams.Add(Param.FromBinaryReader(_reader, this, i));
         }
@@ -321,7 +357,11 @@ internal class AxData
                     else
                     {
                         func.SetName(func.DefaultName ?? "");
-                        functionNames.Add((func.DefaultName ?? "").ToLower(System.Globalization.CultureInfo.CurrentCulture));
+                        functionNames.Add(
+                            (func.DefaultName ?? "").ToLower(
+                                System.Globalization.CultureInfo.CurrentCulture
+                            )
+                        );
                     }
                     break;
                 case FunctionType.NULL:
@@ -340,7 +380,11 @@ internal class AxData
         foreach (Function func in initializer)
         {
             string defName = func.DefaultName ?? "";
-            if (!functionNames.Contains(defName.ToLower(System.Globalization.CultureInfo.CurrentCulture)))
+            if (
+                !functionNames.Contains(
+                    defName.ToLower(System.Globalization.CultureInfo.CurrentCulture)
+                )
+            )
             {
                 func.SetName(defName);
                 functionNames.Add(defName.ToLower(System.Globalization.CultureInfo.CurrentCulture));
@@ -350,7 +394,12 @@ internal class AxData
             int index = 1;
             do
             {
-                newName = string.Format(CultureInfo.InvariantCulture, s_userFunctionNameFormat, defName, index);
+                newName = string.Format(
+                    CultureInfo.InvariantCulture,
+                    s_userFunctionNameFormat,
+                    defName,
+                    index
+                );
                 index++;
             } while (functionNames.Contains(newName));
             func.SetName(newName);
@@ -375,7 +424,11 @@ internal class AxData
                 newName = newName[..atIndex];
             }
 
-            if (!functionNames.Contains(newName.ToLower(System.Globalization.CultureInfo.CurrentCulture)))
+            if (
+                !functionNames.Contains(
+                    newName.ToLower(System.Globalization.CultureInfo.CurrentCulture)
+                )
+            )
             {
                 func.SetName(newName);
                 functionNames.Add(newName.ToLower(System.Globalization.CultureInfo.CurrentCulture));
@@ -384,7 +437,11 @@ internal class AxData
             int index = 1;
             do
             {
-                newName = string.Format(CultureInfo.InvariantCulture, s_dllFunctionNameFormat, index);
+                newName = string.Format(
+                    CultureInfo.InvariantCulture,
+                    s_dllFunctionNameFormat,
+                    index
+                );
                 index++;
             } while (functionNames.Contains(newName));
             func.SetName(newName);
@@ -400,7 +457,11 @@ internal class AxData
             int index = 1;
             do
             {
-                newName = string.Format(CultureInfo.InvariantCulture, s_comFunctionNameFormat, index);
+                newName = string.Format(
+                    CultureInfo.InvariantCulture,
+                    s_comFunctionNameFormat,
+                    index
+                );
                 index++;
             } while (functionNames.Contains(newName));
             func.SetName(newName);
@@ -417,7 +478,9 @@ internal class AxData
 
         _labels.Sort();
         int keta = ((int)System.Math.Log10(_labels.Count)) + 1;
-        var labelFormat = CompositeFormat.Parse("*label_{0:D0" + keta.ToString(CultureInfo.InvariantCulture) + "}");
+        var labelFormat = CompositeFormat.Parse(
+            "*label_{0:D0" + keta.ToString(CultureInfo.InvariantCulture) + "}"
+        );
         for (int i = 0; i < _labels.Count; i++)
         {
             _labels[i].LabelName = string.Format(CultureInfo.InvariantCulture, labelFormat, i);
@@ -440,7 +503,8 @@ internal class AxData
                     i += 2;
                     break;
                 case DebugMarkerVariable:
-                    int literalOffset = _reader.ReadByte() ^ (_reader.ReadByte() << 8) ^ (_reader.ReadByte() << 16);
+                    int literalOffset =
+                        _reader.ReadByte() ^ (_reader.ReadByte() << 8) ^ (_reader.ReadByte() << 16);
                     _variableName.Add(ReadStringLiteral(literalOffset));
                     i += 5;
                     break;

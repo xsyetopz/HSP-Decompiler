@@ -5,6 +5,7 @@ namespace HspDecompiler.Core.Ax3.Data.PP;
 internal class Runtime : Preprocessor
 {
     private Runtime() { }
+
     internal Runtime(string theName)
     {
         _name = theName;

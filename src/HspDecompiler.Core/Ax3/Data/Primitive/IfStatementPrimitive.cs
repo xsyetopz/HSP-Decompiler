@@ -6,6 +6,7 @@ namespace HspDecompiler.Core.Ax3.Data.Primitive;
 internal sealed class IfStatementPrimitive : HspFunctionPrimitive
 {
     private IfStatementPrimitive() { }
+
     internal IfStatementPrimitive(PrimitiveTokenDataSet dataSet, int extraValue)
         : base(dataSet)
     {

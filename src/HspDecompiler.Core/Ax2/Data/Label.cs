@@ -4,9 +4,7 @@ namespace HspDecompiler.Core.Ax2.Data;
 
 internal class Label
 {
-    private Label()
-    {
-    }
+    private Label() { }
 
     internal Label(int p_index, int p_tokenIndex)
     {

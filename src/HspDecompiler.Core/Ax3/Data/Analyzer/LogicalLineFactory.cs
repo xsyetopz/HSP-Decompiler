@@ -39,7 +39,9 @@ internal partial class LogicalLineFactory
 
             if (stream.NextToken is OnEventFunctionPrimitive)
             {
-                return stream.NextNextTokenIsGotoFunction ? (LogicalLine)readOnEvent(stream) : (LogicalLine)readCommand(stream);
+                return stream.NextNextTokenIsGotoFunction
+                    ? (LogicalLine)readOnEvent(stream)
+                    : (LogicalLine)readCommand(stream);
             }
             if (stream.NextToken is OnFunctionPrimitive)
             {
@@ -70,7 +72,9 @@ internal partial class LogicalLineFactory
     private static LogicalLine readMcall(TokenCollection stream)
     {
         int start = stream.Position;
-        McallFunctionPrimitive? mcall = stream.GetNextToken() as McallFunctionPrimitive ?? throw new HspLogicalLineException(Strings.McallInvalidStart);
+        McallFunctionPrimitive? mcall =
+            stream.GetNextToken() as McallFunctionPrimitive
+            ?? throw new HspLogicalLineException(Strings.McallInvalidStart);
         if (stream.NextIsEndOfLine)
         {
             stream.Position = start;
@@ -85,7 +89,9 @@ internal partial class LogicalLineFactory
 
         stream.Position = start;
         stream.GetNextToken();
-        VariablePrimitive? var = stream.GetNextToken() as VariablePrimitive ?? throw new HspLogicalLineException(Strings.McallInconvertibleFormat);
+        VariablePrimitive? var =
+            stream.GetNextToken() as VariablePrimitive
+            ?? throw new HspLogicalLineException(Strings.McallInconvertibleFormat);
         if (stream.NextIsBracketStart)
         {
             throw new HspLogicalLineException(Strings.McallInconvertibleFormat);
@@ -110,7 +116,9 @@ internal partial class LogicalLineFactory
 
     private static OnStatement readOn(TokenCollection stream)
     {
-        OnFunctionPrimitive? token = stream.GetNextToken() as OnFunctionPrimitive ?? throw new HspLogicalLineException(Strings.OnBranchInvalidStart);
+        OnFunctionPrimitive? token =
+            stream.GetNextToken() as OnFunctionPrimitive
+            ?? throw new HspLogicalLineException(Strings.OnBranchInvalidStart);
         if (stream.NextIsEndOfLine)
         {
             return new OnStatement(token, null, null);
@@ -130,7 +138,9 @@ internal partial class LogicalLineFactory
 
     private static OnEventStatement readOnEvent(TokenCollection stream)
     {
-        OnEventFunctionPrimitive? token = stream.GetNextToken() as OnEventFunctionPrimitive ?? throw new HspLogicalLineException(Strings.OnBranchInvalidStart);
+        OnEventFunctionPrimitive? token =
+            stream.GetNextToken() as OnEventFunctionPrimitive
+            ?? throw new HspLogicalLineException(Strings.OnBranchInvalidStart);
         if (stream.NextIsEndOfLine)
         {
             return new OnEventStatement(token, null);
@@ -168,7 +178,9 @@ internal partial class LogicalLineFactory
 
     private static IfStatement readIf(TokenCollection stream)
     {
-        IfStatementPrimitive? token = stream.GetNextToken() as IfStatementPrimitive ?? throw new HspLogicalLineException(Strings.IfBranchInvalidStart);
+        IfStatementPrimitive? token =
+            stream.GetNextToken() as IfStatementPrimitive
+            ?? throw new HspLogicalLineException(Strings.IfBranchInvalidStart);
         if (stream.NextIsEndOfLine)
         {
             return new IfStatement(token);
@@ -187,6 +199,8 @@ internal partial class LogicalLineFactory
     private static Command readCommand(TokenCollection stream)
     {
         FunctionToken func = CodeTokenFactory.ReadFunction(stream, false);
-        return stream.NextIsEndOfLine ? new Command(func) : throw new HspLogicalLineException(Strings.CommandUnexpectedToken);
+        return stream.NextIsEndOfLine
+            ? new Command(func)
+            : throw new HspLogicalLineException(Strings.CommandUnexpectedToken);
     }
 }

@@ -15,7 +15,9 @@ namespace HspDecompiler.Gui.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-    private static readonly CompositeFormat s_errorFormat = CompositeFormat.Parse(Strings.ErrorFormat);
+    private static readonly CompositeFormat s_errorFormat = CompositeFormat.Parse(
+        Strings.ErrorFormat
+    );
 
     [ObservableProperty]
     private string _logText = "";
@@ -23,7 +25,8 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty]
     private bool _isProcessing;
 
-    public ObservableCollection<DpmFileEntry> DpmFiles { get; } = new ObservableCollection<DpmFileEntry>();
+    public ObservableCollection<DpmFileEntry> DpmFiles { get; } =
+        new ObservableCollection<DpmFileEntry>();
 
     public async Task ProcessFileAsync(string filePath)
     {
@@ -50,12 +53,21 @@ public partial class MainWindowViewModel : ViewModelBase
                 OutputDirectory = Path.GetDirectoryName(filePath) ?? "",
                 DictionaryPath = dictPath,
                 AllowDecryption = true,
-                SkipEncrypted = false
+                SkipEncrypted = false,
             };
 
-            DecompilerResult result = await Task.Run(async () => !pipeline.Initialize(dictPath)
-                    ? new DecompilerResult { Success = false, ErrorMessage = Strings.FailedToLoadDictionary }
-                    : await pipeline.RunAsync(options, CancellationToken.None).ConfigureAwait(false)).ConfigureAwait(false);
+            DecompilerResult result = await Task.Run(async () =>
+                    !pipeline.Initialize(dictPath)
+                        ? new DecompilerResult
+                        {
+                            Success = false,
+                            ErrorMessage = Strings.FailedToLoadDictionary,
+                        }
+                        : await pipeline
+                            .RunAsync(options, CancellationToken.None)
+                            .ConfigureAwait(false)
+                )
+                .ConfigureAwait(false);
 
             foreach (DpmFileEntry file in result.DpmFiles)
             {
@@ -64,7 +76,9 @@ public partial class MainWindowViewModel : ViewModelBase
 
             if (!result.Success)
             {
-                AppendLog(string.Format(CultureInfo.InvariantCulture, s_errorFormat, result.ErrorMessage));
+                AppendLog(
+                    string.Format(CultureInfo.InvariantCulture, s_errorFormat, result.ErrorMessage)
+                );
             }
         }
         catch (Exception ex)

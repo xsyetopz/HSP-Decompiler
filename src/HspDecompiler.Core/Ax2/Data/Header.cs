@@ -2,9 +2,7 @@ namespace HspDecompiler.Core.Ax2.Data;
 
 internal class Header
 {
-    private Header()
-    {
-    }
+    private Header() { }
 
     #region var
     private int _allDataByte;
@@ -100,7 +98,7 @@ internal class Header
             _deffuncOffset = data[16],
             _deffuncByte = data[17],
             _moduleOffset = data[18],
-            _moduleByte = data[19]
+            _moduleByte = data[19],
         };
         return ret;
     }

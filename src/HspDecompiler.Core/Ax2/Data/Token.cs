@@ -6,9 +6,7 @@ namespace HspDecompiler.Core.Ax2.Data;
 
 internal class Token
 {
-    private Token()
-    {
-    }
+    private Token() { }
 
     private readonly AxData _data = null!;
 
@@ -31,13 +29,10 @@ internal class Token
             return null;
         }
 
-        var ret = new Token(data)
-        {
-            _id = offset / 2,
-            _fValue = data.TokenData[offset]
-        };
+        var ret = new Token(data) { _id = offset / 2, _fValue = data.TokenData[offset] };
         offset++;
-        ret._fType = data.TokenData[offset]; offset++;
+        ret._fType = data.TokenData[offset];
+        offset++;
         ret._size = 2;
         if ((ret._fType & Ax2TokenType.ExtendedValueBit) != 0)
         {
@@ -47,14 +42,16 @@ internal class Token
         if ((ret.Type == Ax2TokenType.IfElse) && ((ret.Value == 0) || (ret.Value == 1)))
         {
             ret._size += 2;
-            ret._ifJumpTo = BitConverter.ToInt16(data.TokenData, offset); offset += 2;
+            ret._ifJumpTo = BitConverter.ToInt16(data.TokenData, offset);
+            offset += 2;
             ret._ifJumpTo += ret._id + 2;
         }
         if (((ret._fType & Ax2TokenType.LongValueFlag) != 0))
         {
             ret._fType ^= Ax2TokenType.LongValueFlag;
             ret._size += 4;
-            ret._fValue = BitConverter.ToInt32(data.TokenData, offset); offset += 4;
+            ret._fValue = BitConverter.ToInt32(data.TokenData, offset);
+            offset += 4;
         }
         return ret;
     }
@@ -66,7 +63,9 @@ internal class Token
 
     private int Value => _fValue;
 
-    internal bool NextIsUnenableLabel => (Type == Ax2TokenType.FlowControl) && ((_fValue == 0x03) || (_fValue == 0x11) || (_fValue == 0x2b));
+    internal bool NextIsUnenableLabel =>
+        (Type == Ax2TokenType.FlowControl)
+        && ((_fValue == 0x03) || (_fValue == 0x11) || (_fValue == 0x2b));
 
     internal bool IsLinehead => (_fType & Ax2TokenType.LineHeadFlag) != 0;
 
@@ -115,7 +114,10 @@ internal class Token
 
     internal bool IsEmpty => (_fType == 0) && (_fValue == 0);
 
-    internal int LabelIndex => IsLinehead ? -1 : Type == Ax2TokenType.Label ? Value : -1;
+    internal int LabelIndex =>
+        IsLinehead ? -1
+        : Type == Ax2TokenType.Label ? Value
+        : -1;
     #endregion
 
     #region properties for decompile
@@ -136,7 +138,11 @@ internal class Token
                     case 0x64:
                         return ">>";
                     default:
-                        System.Text.Encoding encode = HspDecompiler.Core.Encoding.ShiftJisHelper.Encoding;
+                        System.Text.Encoding encode = HspDecompiler
+                            .Core
+                            .Encoding
+                            .ShiftJisHelper
+                            .Encoding;
                         byte[] bytes = new byte[1];
                         bytes[0] = (byte)Value;
                         return encode.GetString(bytes);
@@ -212,13 +218,17 @@ internal class Token
             default:
                 break;
         }
-        return Type.ToString("x2", CultureInfo.InvariantCulture) + Value.ToString("x2", CultureInfo.InvariantCulture);
+        return Type.ToString("x2", CultureInfo.InvariantCulture)
+            + Value.ToString("x2", CultureInfo.InvariantCulture);
     }
 
     internal bool IsKnown =>
-        !GetString().Equals(
-            Type.ToString("x2", CultureInfo.InvariantCulture) + Value.ToString("x2", CultureInfo.InvariantCulture),
-            StringComparison.Ordinal);
+        !GetString()
+            .Equals(
+                Type.ToString("x2", CultureInfo.InvariantCulture)
+                    + Value.ToString("x2", CultureInfo.InvariantCulture),
+                StringComparison.Ordinal
+            );
 
     private static readonly char[] s_escapeWord = ['\n', '\r', '\t', '\"', '\\'];
 

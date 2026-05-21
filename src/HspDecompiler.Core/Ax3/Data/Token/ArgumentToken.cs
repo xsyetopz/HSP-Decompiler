@@ -6,6 +6,7 @@ namespace HspDecompiler.Core.Ax3.Data.Token;
 internal sealed class ArgumentToken : CodeToken
 {
     private ArgumentToken() { }
+
     internal ArgumentToken(List<ExpressionToken> theExps, bool hasBrackets, bool firstArgIsNull)
     {
         _exps = theExps;
@@ -17,7 +18,8 @@ internal sealed class ArgumentToken : CodeToken
     private readonly bool _hasBrackets;
     private readonly bool _firstArgIsNull;
     internal List<ExpressionToken> Exps => _exps!;
-    internal override int TokenOffset => (_exps == null) || (_exps.Count == 0) ? -1 : _exps[0].TokenOffset;
+    internal override int TokenOffset =>
+        (_exps == null) || (_exps.Count == 0) ? -1 : _exps[0].TokenOffset;
 
     public override string ToString() => ToString(false);
 

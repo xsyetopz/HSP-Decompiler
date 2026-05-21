@@ -5,7 +5,12 @@ namespace HspDecompiler.Core.Ax3.Data.Token;
 internal sealed class SubExpressionToken : OperandToken
 {
     private SubExpressionToken() { }
-    internal SubExpressionToken(OperandToken leftToken, OperandToken rightToken, OperatorToken opToken)
+
+    internal SubExpressionToken(
+        OperandToken leftToken,
+        OperandToken rightToken,
+        OperatorToken opToken
+    )
     {
         _p1 = leftToken;
         _p2 = rightToken;

@@ -18,10 +18,7 @@ internal sealed class IMAGE_NT_HEADERS
 
     internal static IMAGE_NT_HEADERS? FromBinaryReader(BinaryReader reader)
     {
-        var ret = new IMAGE_NT_HEADERS
-        {
-            _signature = reader.ReadUInt32()
-        };
+        var ret = new IMAGE_NT_HEADERS { _signature = reader.ReadUInt32() };
         if (ret._signature != ImageNtSignature)
         {
             return null;
@@ -109,7 +106,9 @@ internal sealed class IMAGE_OPTIONAL_HEADER
     internal uint _sizeOfHeapCommit;
     internal uint _loaderFlags;
     internal uint _numberOfRvaAndSizes;
-    internal IMAGE_DATA_DIRECTORY[] _dataDirectory = new IMAGE_DATA_DIRECTORY[ImageNumberofDirectoryEntries];
+    internal IMAGE_DATA_DIRECTORY[] _dataDirectory = new IMAGE_DATA_DIRECTORY[
+        ImageNumberofDirectoryEntries
+    ];
 
     internal static IMAGE_OPTIONAL_HEADER? FromBinaryReader(BinaryReader reader)
     {
@@ -152,7 +151,7 @@ internal sealed class IMAGE_OPTIONAL_HEADER
                 ret._dataDirectory[i] = new IMAGE_DATA_DIRECTORY
                 {
                     _virtualAddress = reader.ReadUInt32(),
-                    _size = reader.ReadUInt32()
+                    _size = reader.ReadUInt32(),
                 };
             }
         }
@@ -175,7 +174,11 @@ internal sealed class IMAGE_SECTION_HEADER
     internal const int ImageSizeofShortName = 8;
     internal byte[] _name = new byte[ImageSizeofShortName];
     internal uint _physicalAddress;
-    internal uint _virtualSize { get => _physicalAddress; set => _physicalAddress = value; }
+    internal uint _virtualSize
+    {
+        get => _physicalAddress;
+        set => _physicalAddress = value;
+    }
     internal uint _virtualAddress;
     internal uint _sizeOfRawData;
     internal uint _pointerToRawData;
@@ -225,50 +228,50 @@ internal sealed class IMAGE_DOS_HEADER
     /// リトルエンディアンで MZ(4D 5A)
     /// </summary>
     private const int ImageDosSignature = 0x5A4D;
-    internal ushort _e_magic;                     // Magic number
-    internal ushort _e_cblp;                      // Bytes on last page of file
-    internal ushort _e_cp;                        // Pages in file
-    internal ushort _e_crlc;                      // Relocations
-    internal ushort _e_cparhdr;                   // Size of header in paragraphs
-    internal ushort _e_minalloc;                  // Minimum extra paragraphs needed
-    internal ushort _e_maxalloc;                  // Maximum extra paragraphs needed
-    internal ushort _e_ss;                        // Initial (relative) SS value
-    internal ushort _e_sp;                        // Initial SP value
-    internal ushort _e_csum;                      // Checksum
-    internal ushort _e_ip;                        // Initial IP value
-    internal ushort _e_cs;                        // Initial (relative) CS value
-    internal ushort _e_lfarlc;                    // File address of relocation table
-    internal ushort _e_ovno;                      // Overlay number
-    internal ushort[] _e_res = new ushort[4];     // Reserved words
-    internal ushort _e_oemid;                     // OEM identifier (for e_oeminfo)
-    internal ushort _e_oeminfo;                   // OEM information; e_oemid specific
-    internal ushort[] _e_res2 = new ushort[10];   // Reserved words
-    internal uint _e_lfanew;                      // File address of new exe header
+    internal ushort _e_magic; // Magic number
+    internal ushort _e_cblp; // Bytes on last page of file
+    internal ushort _e_cp; // Pages in file
+    internal ushort _e_crlc; // Relocations
+    internal ushort _e_cparhdr; // Size of header in paragraphs
+    internal ushort _e_minalloc; // Minimum extra paragraphs needed
+    internal ushort _e_maxalloc; // Maximum extra paragraphs needed
+    internal ushort _e_ss; // Initial (relative) SS value
+    internal ushort _e_sp; // Initial SP value
+    internal ushort _e_csum; // Checksum
+    internal ushort _e_ip; // Initial IP value
+    internal ushort _e_cs; // Initial (relative) CS value
+    internal ushort _e_lfarlc; // File address of relocation table
+    internal ushort _e_ovno; // Overlay number
+    internal ushort[] _e_res = new ushort[4]; // Reserved words
+    internal ushort _e_oemid; // OEM identifier (for e_oeminfo)
+    internal ushort _e_oeminfo; // OEM information; e_oemid specific
+    internal ushort[] _e_res2 = new ushort[10]; // Reserved words
+    internal uint _e_lfanew; // File address of new exe header
 
     internal static IMAGE_DOS_HEADER? FromBinaryReader(BinaryReader reader)
     {
         var ret = new IMAGE_DOS_HEADER();
         try
         {
-            ret._e_magic = reader.ReadUInt16();                     // Magic number
+            ret._e_magic = reader.ReadUInt16(); // Magic number
             if (ret._e_magic != ImageDosSignature)
             {
                 return null;
             }
 
-            ret._e_cblp = reader.ReadUInt16();                      // Bytes on last page of file
-            ret._e_cp = reader.ReadUInt16();                        // Pages in file
-            ret._e_crlc = reader.ReadUInt16();                      // Relocations
-            ret._e_cparhdr = reader.ReadUInt16();                   // Size of header in paragraphs
-            ret._e_minalloc = reader.ReadUInt16();                  // Minimum extra paragraphs needed
-            ret._e_maxalloc = reader.ReadUInt16();                  // Maximum extra paragraphs needed
-            ret._e_ss = reader.ReadUInt16();                        // Initial (relative) SS value
-            ret._e_sp = reader.ReadUInt16();                        // Initial SP value
-            ret._e_csum = reader.ReadUInt16();                      // Checksum
-            ret._e_ip = reader.ReadUInt16();                        // Initial IP value
-            ret._e_cs = reader.ReadUInt16();                        // Initial (relative) CS value
-            ret._e_lfarlc = reader.ReadUInt16();                    // File address of relocation table
-            ret._e_ovno = reader.ReadUInt16();                      // Overlay number
+            ret._e_cblp = reader.ReadUInt16(); // Bytes on last page of file
+            ret._e_cp = reader.ReadUInt16(); // Pages in file
+            ret._e_crlc = reader.ReadUInt16(); // Relocations
+            ret._e_cparhdr = reader.ReadUInt16(); // Size of header in paragraphs
+            ret._e_minalloc = reader.ReadUInt16(); // Minimum extra paragraphs needed
+            ret._e_maxalloc = reader.ReadUInt16(); // Maximum extra paragraphs needed
+            ret._e_ss = reader.ReadUInt16(); // Initial (relative) SS value
+            ret._e_sp = reader.ReadUInt16(); // Initial SP value
+            ret._e_csum = reader.ReadUInt16(); // Checksum
+            ret._e_ip = reader.ReadUInt16(); // Initial IP value
+            ret._e_cs = reader.ReadUInt16(); // Initial (relative) CS value
+            ret._e_lfarlc = reader.ReadUInt16(); // File address of relocation table
+            ret._e_ovno = reader.ReadUInt16(); // Overlay number
             for (int i = 0; i < 4; i++)
             {
                 ret._e_res[i] = reader.ReadUInt16();
@@ -349,10 +352,7 @@ internal sealed class Win32PeHeader
                 return null;
             }
 
-            var ret = new Win32PeHeader
-            {
-                _dosHeader = IMAGE_DOS_HEADER.FromBinaryReader(reader)
-            };
+            var ret = new Win32PeHeader { _dosHeader = IMAGE_DOS_HEADER.FromBinaryReader(reader) };
             if (ret._dosHeader == null)
             {
                 return null;

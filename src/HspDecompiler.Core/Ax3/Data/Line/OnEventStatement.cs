@@ -7,6 +7,7 @@ namespace HspDecompiler.Core.Ax3.Data.Line;
 internal sealed class OnEventStatement : LogicalLine
 {
     private OnEventStatement() { }
+
     internal OnEventStatement(OnEventFunctionPrimitive theToken, FunctionToken? func)
     {
         _token = theToken;

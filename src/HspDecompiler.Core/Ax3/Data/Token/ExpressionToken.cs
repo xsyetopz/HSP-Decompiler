@@ -7,6 +7,7 @@ namespace HspDecompiler.Core.Ax3.Data.Token;
 internal sealed class ExpressionToken : CodeToken
 {
     private ExpressionToken() { }
+
     internal ExpressionToken(List<ExpressionTermToken> elements)
     {
         _tokens = elements;
@@ -15,7 +16,10 @@ internal sealed class ExpressionToken : CodeToken
     private readonly List<ExpressionTermToken>? _tokens;
     private ExpressionTermToken? _convertedToken;
     private bool _tryConvert;
-    internal bool CanRpnConvert => _convertedToken != null ? true : !_tryConvert ? RpnConvert() : false;
+    internal bool CanRpnConvert =>
+        _convertedToken != null ? true
+        : !_tryConvert ? RpnConvert()
+        : false;
 
     internal bool RpnConvert()
     {
@@ -50,7 +54,11 @@ internal sealed class ExpressionToken : CodeToken
                     stack.RemoveAt(stack.Count - 1);
                     var left = (OperandToken)stack[^1];
                     stack.RemoveAt(stack.Count - 1);
-                    stack.Add((ExpressionTermToken)(new SubExpressionToken(left, right, (OperatorToken)token)));
+                    stack.Add(
+                        (ExpressionTermToken)(
+                            new SubExpressionToken(left, right, (OperatorToken)token)
+                        )
+                    );
                 }
                 else
                 {

@@ -21,17 +21,39 @@ public sealed class DecompilerPipeline
     private const string Hsp2Magic = "HSP2";
     private const string Hsp3Magic = "HSP3";
 
-    private static readonly CompositeFormat s_dictionaryLoadSuccessFormat = CompositeFormat.Parse(Strings.DictionaryLoadSuccess);
-    private static readonly CompositeFormat s_dictionaryLoadFailedFormat = CompositeFormat.Parse(Strings.DictionaryLoadFailed);
-    private static readonly CompositeFormat s_readingFileFormat = CompositeFormat.Parse(Strings.ReadingFile);
-    private static readonly CompositeFormat s_directoryCreateFailedFormat = CompositeFormat.Parse(Strings.DirectoryCreateFailed);
-    private static readonly CompositeFormat s_fileEncryptedFormat = CompositeFormat.Parse(Strings.FileEncrypted);
-    private static readonly CompositeFormat s_fileAlreadyExistsFormat = CompositeFormat.Parse(Strings.FileAlreadyExists);
-    private static readonly CompositeFormat s_fileSeekFailedFormat = CompositeFormat.Parse(Strings.FileSeekFailed);
-    private static readonly CompositeFormat s_fileSaveFailedFormat = CompositeFormat.Parse(Strings.FileSaveFailed);
-    private static readonly CompositeFormat s_decryptingFileFormat = CompositeFormat.Parse(Strings.DecryptingFile);
-    private static readonly CompositeFormat s_decryptionFailedFormat = CompositeFormat.Parse(Strings.DecryptionFailed);
-    private static readonly CompositeFormat s_outputtingToFormat = CompositeFormat.Parse(Strings.OutputtingTo);
+    private static readonly CompositeFormat s_dictionaryLoadSuccessFormat = CompositeFormat.Parse(
+        Strings.DictionaryLoadSuccess
+    );
+    private static readonly CompositeFormat s_dictionaryLoadFailedFormat = CompositeFormat.Parse(
+        Strings.DictionaryLoadFailed
+    );
+    private static readonly CompositeFormat s_readingFileFormat = CompositeFormat.Parse(
+        Strings.ReadingFile
+    );
+    private static readonly CompositeFormat s_directoryCreateFailedFormat = CompositeFormat.Parse(
+        Strings.DirectoryCreateFailed
+    );
+    private static readonly CompositeFormat s_fileEncryptedFormat = CompositeFormat.Parse(
+        Strings.FileEncrypted
+    );
+    private static readonly CompositeFormat s_fileAlreadyExistsFormat = CompositeFormat.Parse(
+        Strings.FileAlreadyExists
+    );
+    private static readonly CompositeFormat s_fileSeekFailedFormat = CompositeFormat.Parse(
+        Strings.FileSeekFailed
+    );
+    private static readonly CompositeFormat s_fileSaveFailedFormat = CompositeFormat.Parse(
+        Strings.FileSaveFailed
+    );
+    private static readonly CompositeFormat s_decryptingFileFormat = CompositeFormat.Parse(
+        Strings.DecryptingFile
+    );
+    private static readonly CompositeFormat s_decryptionFailedFormat = CompositeFormat.Parse(
+        Strings.DecryptionFailed
+    );
+    private static readonly CompositeFormat s_outputtingToFormat = CompositeFormat.Parse(
+        Strings.OutputtingTo
+    );
 
     private readonly IDecompilerLogger _logger;
     private readonly IProgressReporter _progress;
@@ -59,15 +81,30 @@ public sealed class DecompilerPipeline
 
         if (_dictionary != null)
         {
-            _logger.Write(string.Format(CultureInfo.InvariantCulture, s_dictionaryLoadSuccessFormat, Path.GetFileName(dictionaryPath)));
+            _logger.Write(
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    s_dictionaryLoadSuccessFormat,
+                    Path.GetFileName(dictionaryPath)
+                )
+            );
             return true;
         }
 
-        _logger.Write(string.Format(CultureInfo.InvariantCulture, s_dictionaryLoadFailedFormat, Path.GetFileName(dictionaryPath)));
+        _logger.Write(
+            string.Format(
+                CultureInfo.InvariantCulture,
+                s_dictionaryLoadFailedFormat,
+                Path.GetFileName(dictionaryPath)
+            )
+        );
         return false;
     }
 
-    public async Task<DecompilerResult> RunAsync(DecompilerOptions options, CancellationToken ct = default)
+    public async Task<DecompilerResult> RunAsync(
+        DecompilerOptions options,
+        CancellationToken ct = default
+    )
     {
         ArgumentNullException.ThrowIfNull(options);
 
@@ -76,22 +113,38 @@ public sealed class DecompilerPipeline
 
         try
         {
-            _logger.Write(string.Format(CultureInfo.InvariantCulture, s_readingFileFormat, Path.GetFileName(options.InputPath)));
+            _logger.Write(
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    s_readingFileFormat,
+                    Path.GetFileName(options.InputPath)
+                )
+            );
             using var stream = new FileStream(options.InputPath, FileMode.Open, FileAccess.Read);
             using var reader = new BinaryReader(stream, ShiftJisHelper.Encoding);
 
             string magic = DetectFileFormat(reader);
 
-            string inputDir = (Path.GetDirectoryName(options.InputPath) ?? ".") + Path.DirectorySeparatorChar;
+            string inputDir =
+                (Path.GetDirectoryName(options.InputPath) ?? ".") + Path.DirectorySeparatorChar;
             string inputBaseName = Path.GetFileNameWithoutExtension(options.InputPath);
 
-            if (magic.StartsWith("MZ", StringComparison.Ordinal) || magic.StartsWith("DPM", StringComparison.Ordinal))
+            if (
+                magic.StartsWith("MZ", StringComparison.Ordinal)
+                || magic.StartsWith("DPM", StringComparison.Ordinal)
+            )
             {
                 string outputDir = BuildAutoIncrementDirName(inputDir, inputBaseName);
                 errorLogPath = outputDir.TrimEnd(Path.DirectorySeparatorChar) + ".log";
                 outputDir += Path.DirectorySeparatorChar;
 
-                DpmExtractionResult dpmResult = await DecompressDpmAsync(reader, outputDir, options, ct).ConfigureAwait(false);
+                DpmExtractionResult dpmResult = await DecompressDpmAsync(
+                        reader,
+                        outputDir,
+                        options,
+                        ct
+                    )
+                    .ConfigureAwait(false);
                 decompilerOutput.DpmFiles.AddRange(dpmResult.Files);
                 decompilerOutput.OutputPath = outputDir;
 
@@ -119,7 +172,10 @@ public sealed class DecompilerPipeline
                         continue;
                     }
 
-                    if (entry.FileName == null || !entry.FileName.EndsWith(".ax", StringComparison.OrdinalIgnoreCase))
+                    if (
+                        entry.FileName == null
+                        || !entry.FileName.EndsWith(".ax", StringComparison.OrdinalIgnoreCase)
+                    )
                     {
                         continue;
                     }
@@ -130,14 +186,19 @@ public sealed class DecompilerPipeline
                     string axMagic = new(axMagicChars);
                     axReader.BaseStream.Seek(0, SeekOrigin.Begin);
 
-                    string ext = axMagic.StartsWith("HSP2", StringComparison.Ordinal) ? ".as" : ".hsp";
+                    string ext = axMagic.StartsWith("HSP2", StringComparison.Ordinal)
+                        ? ".as"
+                        : ".hsp";
                     string axBaseName = Path.GetFileNameWithoutExtension(entry.FileName);
                     string outputPath = BuildAutoIncrementFileName(outputDir, axBaseName, ext);
 
                     await DecodeAsync(axReader, outputPath, ct).ConfigureAwait(false);
                 }
             }
-            else if (magic.StartsWith(Hsp2Magic, StringComparison.Ordinal) || magic.StartsWith(Hsp3Magic, StringComparison.Ordinal))
+            else if (
+                magic.StartsWith(Hsp2Magic, StringComparison.Ordinal)
+                || magic.StartsWith(Hsp3Magic, StringComparison.Ordinal)
+            )
             {
                 string ext = magic.StartsWith(Hsp2Magic, StringComparison.Ordinal) ? ".as" : ".hsp";
                 string outputPath = BuildAutoIncrementFileName(inputDir, inputBaseName, ext);
@@ -153,7 +214,9 @@ public sealed class DecompilerPipeline
 
             if (_logger.Warnings.Count > 0)
             {
-                using (var errorLog = new StreamWriter(errorLogPath, false, ShiftJisHelper.Encoding))
+                using (
+                    var errorLog = new StreamWriter(errorLogPath, false, ShiftJisHelper.Encoding)
+                )
                 {
                     foreach (string warning in _logger.Warnings)
                     {
@@ -183,14 +246,21 @@ public sealed class DecompilerPipeline
         return magic;
     }
 
-    public async Task<DpmExtractionResult> DecompressDpmAsync(BinaryReader reader, string outputDir, DecompilerOptions options, CancellationToken ct = default)
+    public async Task<DpmExtractionResult> DecompressDpmAsync(
+        BinaryReader reader,
+        string outputDir,
+        DecompilerOptions options,
+        CancellationToken ct = default
+    )
     {
         ArgumentNullException.ThrowIfNull(reader);
 
         var dpmResult = new DpmExtractionResult();
 
         _logger.Write(Strings.SearchingDpmHeader);
-        DpmExtractor? extractor = DpmExtractor.FromBinaryReader(reader) ?? throw new HspDecoderException(Strings.DpmHeaderNotFound);
+        DpmExtractor? extractor =
+            DpmExtractor.FromBinaryReader(reader)
+            ?? throw new HspDecoderException(Strings.DpmHeaderNotFound);
         if (extractor.FileList == null || extractor.FileList.Count == 0)
         {
             throw new HspDecoderException(Strings.DpmNoFiles);
@@ -231,7 +301,14 @@ public sealed class DecompilerPipeline
             }
             catch (Exception ex)
             {
-                throw new HspDecoderException(string.Format(CultureInfo.InvariantCulture, s_directoryCreateFailedFormat, outputDir), ex);
+                throw new HspDecoderException(
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        s_directoryCreateFailedFormat,
+                        outputDir
+                    ),
+                    ex
+                );
             }
         }
 
@@ -243,7 +320,8 @@ public sealed class DecompilerPipeline
 
         foreach (DpmFileEntry file in extractor.FileList)
         {
-            await WriteDpmEntryAsync(reader, extractor, file, outputDir, options, dpm2Crypto, ct).ConfigureAwait(false);
+            await WriteDpmEntryAsync(reader, extractor, file, outputDir, options, dpm2Crypto, ct)
+                .ConfigureAwait(false);
         }
 
         _logger.Write(Strings.ExtractionComplete);
@@ -257,24 +335,35 @@ public sealed class DecompilerPipeline
         string outputDir,
         DecompilerOptions options,
         Dpm2CryptoTransform? dpm2Crypto,
-        CancellationToken ct)
+        CancellationToken ct
+    )
     {
         if (file.IsEncrypted && !options.AllowDecryption)
         {
-            _logger.Write(string.Format(CultureInfo.InvariantCulture, s_fileEncryptedFormat, file.FileName));
+            _logger.Write(
+                string.Format(CultureInfo.InvariantCulture, s_fileEncryptedFormat, file.FileName)
+            );
             return;
         }
 
         string outputPath = Path.Combine(outputDir, file.FileName ?? "");
         if (File.Exists(outputPath))
         {
-            _logger.Write(string.Format(CultureInfo.InvariantCulture, s_fileAlreadyExistsFormat, file.FileName));
+            _logger.Write(
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    s_fileAlreadyExistsFormat,
+                    file.FileName
+                )
+            );
             return;
         }
 
         if (!extractor.Seek(file))
         {
-            _logger.Write(string.Format(CultureInfo.InvariantCulture, s_fileSeekFailedFormat, file.FileName));
+            _logger.Write(
+                string.Format(CultureInfo.InvariantCulture, s_fileSeekFailedFormat, file.FileName)
+            );
             return;
         }
 
@@ -287,7 +376,8 @@ public sealed class DecompilerPipeline
 
         if (file.IsEncrypted)
         {
-            await CrackDpmEncryptionAsync(fileData, file, outputDir, outputPath, ct).ConfigureAwait(false);
+            await CrackDpmEncryptionAsync(fileData, file, outputDir, outputPath, ct)
+                .ConfigureAwait(false);
         }
         else
         {
@@ -298,12 +388,24 @@ public sealed class DecompilerPipeline
                 {
                     Directory.CreateDirectory(dir);
                 }
-                using var saveStream = new FileStream(outputPath, FileMode.CreateNew, FileAccess.Write);
+                using var saveStream = new FileStream(
+                    outputPath,
+                    FileMode.CreateNew,
+                    FileAccess.Write
+                );
                 saveStream.Write(fileData, 0, fileData.Length);
             }
             catch (IOException ex)
             {
-                _logger.Warning(string.Format(CultureInfo.InvariantCulture, s_fileSaveFailedFormat, file.FileName) + " " + ex.Message);
+                _logger.Warning(
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        s_fileSaveFailedFormat,
+                        file.FileName
+                    )
+                        + " "
+                        + ex.Message
+                );
             }
         }
     }
@@ -313,12 +415,20 @@ public sealed class DecompilerPipeline
         DpmFileEntry file,
         string outputDir,
         string outputPath,
-        CancellationToken _)
+        CancellationToken _
+    )
     {
-        _logger.Write(string.Format(CultureInfo.InvariantCulture, s_decryptingFileFormat, file.FileName));
+        _logger.Write(
+            string.Format(CultureInfo.InvariantCulture, s_decryptingFileFormat, file.FileName)
+        );
 
-        string decryptedBaseName = Path.GetFileNameWithoutExtension(file.FileName) ?? file.FileName ?? "";
-        string resolvedOutputPath = BuildAutoIncrementFileName(outputDir, decryptedBaseName, ".hsp");
+        string decryptedBaseName =
+            Path.GetFileNameWithoutExtension(file.FileName) ?? file.FileName ?? "";
+        string resolvedOutputPath = BuildAutoIncrementFileName(
+            outputDir,
+            decryptedBaseName,
+            ".hsp"
+        );
         bool decryptionSucceeded = false;
 
         bool validator(byte[] decryptedData)
@@ -331,19 +441,30 @@ public sealed class DecompilerPipeline
                 string fileMagic = new(magicChars);
                 br.BaseStream.Seek(0, SeekOrigin.Begin);
 
-                if (!fileMagic.StartsWith(Hsp2Magic, StringComparison.Ordinal) &&
-                    !fileMagic.StartsWith(Hsp3Magic, StringComparison.Ordinal))
+                if (
+                    !fileMagic.StartsWith(Hsp2Magic, StringComparison.Ordinal)
+                    && !fileMagic.StartsWith(Hsp3Magic, StringComparison.Ordinal)
+                )
                 {
                     return false;
                 }
 
-                string resolvedExt = fileMagic.StartsWith(Hsp2Magic, StringComparison.Ordinal) ? ".as" : ".hsp";
-                string candidatePath = BuildAutoIncrementFileName(outputDir, decryptedBaseName, resolvedExt);
+                string resolvedExt = fileMagic.StartsWith(Hsp2Magic, StringComparison.Ordinal)
+                    ? ".as"
+                    : ".hsp";
+                string candidatePath = BuildAutoIncrementFileName(
+                    outputDir,
+                    decryptedBaseName,
+                    resolvedExt
+                );
 
                 IAxDecoder decoder = CreateDecoder(br);
                 // CrackEncryption is synchronous; validator must be synchronous too.
                 // Blocking here is unavoidable given the HspCryptoTransform.CrackEncryption API contract.
-                List<string> lines = decoder.DecodeAsync(br, _logger, _progress, CancellationToken.None).GetAwaiter().GetResult();
+                List<string> lines = decoder
+                    .DecodeAsync(br, _logger, _progress, CancellationToken.None)
+                    .GetAwaiter()
+                    .GetResult();
                 WriteOutputLines(lines, candidatePath);
                 resolvedOutputPath = candidatePath;
                 decryptionSucceeded = true;
@@ -358,25 +479,40 @@ public sealed class DecompilerPipeline
         var decryptor = HspCryptoTransform.CrackEncryption(fileData, validator);
         if (decryptor == null || !decryptionSucceeded)
         {
-            _logger.Write(string.Format(CultureInfo.InvariantCulture, s_decryptionFailedFormat, file.FileName));
+            _logger.Write(
+                string.Format(CultureInfo.InvariantCulture, s_decryptionFailedFormat, file.FileName)
+            );
             return Task.CompletedTask;
         }
 
         byte[] decryptedBytes = decryptor.Decryption(fileData);
         try
         {
+            string? dir = Path.GetDirectoryName(outputPath);
+            if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
             using var saveStream = new FileStream(outputPath, FileMode.CreateNew, FileAccess.Write);
             saveStream.Write(decryptedBytes, 0, decryptedBytes.Length);
         }
         catch (IOException ex)
         {
-            _logger.Warning(string.Format(CultureInfo.InvariantCulture, s_fileSaveFailedFormat, file.FileName) + " " + ex.Message);
+            _logger.Warning(
+                string.Format(CultureInfo.InvariantCulture, s_fileSaveFailedFormat, file.FileName)
+                    + " "
+                    + ex.Message
+            );
         }
 
         return Task.CompletedTask;
     }
 
-    public async Task DecodeAsync(BinaryReader reader, string outputPath, CancellationToken ct = default)
+    public async Task DecodeAsync(
+        BinaryReader reader,
+        string outputPath,
+        CancellationToken ct = default
+    )
     {
         ArgumentNullException.ThrowIfNull(reader);
 
@@ -390,12 +526,20 @@ public sealed class DecompilerPipeline
         _logger.StartSection();
 
         IAxDecoder decoder = CreateDecoder(reader);
-        List<string> lines = await decoder.DecodeAsync(reader, _logger, _progress, ct).ConfigureAwait(false);
+        List<string> lines = await decoder
+            .DecodeAsync(reader, _logger, _progress, ct)
+            .ConfigureAwait(false);
 
         _logger.EndSection();
         _logger.Write(Strings.DecompileComplete);
         _logger.EndSection();
-        _logger.Write(string.Format(CultureInfo.InvariantCulture, s_outputtingToFormat, Path.GetFileName(outputPath)));
+        _logger.Write(
+            string.Format(
+                CultureInfo.InvariantCulture,
+                s_outputtingToFormat,
+                Path.GetFileName(outputPath)
+            )
+        );
 
         WriteOutputLines(lines, outputPath);
         _logger.Write(Strings.OutputComplete);
@@ -415,10 +559,7 @@ public sealed class DecompilerPipeline
 
         if (magic.Equals(Hsp3Magic, StringComparison.Ordinal))
         {
-            var decoder = new Ax3Decoder
-            {
-                Dictionary = _dictionary
-            };
+            var decoder = new Ax3Decoder { Dictionary = _dictionary };
             return decoder;
         }
 
@@ -448,8 +589,7 @@ public sealed class DecompilerPipeline
         {
             directoryPath = Path.Combine(parentDir, $"{baseName} ({i})");
             i++;
-        }
-        while (Directory.Exists(directoryPath));
+        } while (Directory.Exists(directoryPath));
 
         return directoryPath;
     }
@@ -468,8 +608,7 @@ public sealed class DecompilerPipeline
         {
             filePath = Path.Combine(dir, $"{baseName} ({i}){extension}");
             i++;
-        }
-        while (File.Exists(filePath));
+        } while (File.Exists(filePath));
 
         return filePath;
     }

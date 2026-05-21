@@ -12,8 +12,11 @@ public class PipelineFileDetectionTests
     [InlineData("JUNK", false)]
     public void MagicBytesDetection(string magic, bool isRecognized)
     {
-        bool recognized = magic.StartsWith("MZ", System.StringComparison.Ordinal) || magic.StartsWith("DPM", System.StringComparison.Ordinal) ||
-                          magic.StartsWith("HSP2", System.StringComparison.Ordinal) || magic.StartsWith("HSP3", System.StringComparison.Ordinal);
+        bool recognized =
+            magic.StartsWith("MZ", System.StringComparison.Ordinal)
+            || magic.StartsWith("DPM", System.StringComparison.Ordinal)
+            || magic.StartsWith("HSP2", System.StringComparison.Ordinal)
+            || magic.StartsWith("HSP3", System.StringComparison.Ordinal);
         Assert.Equal(isRecognized, recognized);
     }
 }

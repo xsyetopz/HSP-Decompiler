@@ -13,12 +13,22 @@ namespace HspDecompiler.Core.Ax3.Data;
 
 internal class SyntacticAnalyzer
 {
-    private static readonly CompositeFormat s_scopeEndExceedsCodeFormat = CompositeFormat.Parse(Strings.AnalysisFailedScopeEndExceedsCode);
-    private static readonly CompositeFormat s_scopeEndMidLineFormat = CompositeFormat.Parse(Strings.AnalysisFailedScopeEndMidLine);
+    private static readonly CompositeFormat s_scopeEndExceedsCodeFormat = CompositeFormat.Parse(
+        Strings.AnalysisFailedScopeEndExceedsCode
+    );
+    private static readonly CompositeFormat s_scopeEndMidLineFormat = CompositeFormat.Parse(
+        Strings.AnalysisFailedScopeEndMidLine
+    );
 
     private int _readingLine;
 
-    internal async Task<List<LogicalLine>> AnalyzeAsync(TokenCollection stream, AxData data, IDecompilerLogger logger, IProgressReporter progress, CancellationToken ct)
+    internal async Task<List<LogicalLine>> AnalyzeAsync(
+        TokenCollection stream,
+        AxData data,
+        IDecompilerLogger logger,
+        IProgressReporter progress,
+        CancellationToken ct
+    )
     {
         var ret = new List<LogicalLine>();
         SubAnalyzePreprocessor(ret, data);
@@ -170,13 +180,25 @@ internal class SyntacticAnalyzer
             if (jumpToLineNo == -1)
             {
                 scopeStart.ScopeEndIsDefined = false;
-                scopeStart.AddError(string.Format(CultureInfo.InvariantCulture, s_scopeEndExceedsCodeFormat, jumpToOffset.ToString("X08", CultureInfo.InvariantCulture)));
+                scopeStart.AddError(
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        s_scopeEndExceedsCodeFormat,
+                        jumpToOffset.ToString("X08", CultureInfo.InvariantCulture)
+                    )
+                );
                 continue;
             }
             if (jumpToLineNo == -2)
             {
                 scopeStart.ScopeEndIsDefined = false;
-                scopeStart.AddError(string.Format(CultureInfo.InvariantCulture, s_scopeEndMidLineFormat, jumpToOffset.ToString("X08", CultureInfo.InvariantCulture)));
+                scopeStart.AddError(
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        s_scopeEndMidLineFormat,
+                        jumpToOffset.ToString("X08", CultureInfo.InvariantCulture)
+                    )
+                );
                 continue;
             }
             var elseStatement = ret[jumpToLineNo - 1] as IfStatement;
@@ -212,7 +234,10 @@ internal class SyntacticAnalyzer
                 continue;
             }
 
-            while ((i < ret.Count) && ((ret[i].TokenOffset == -1) || (label.TokenOffset > ret[i].TokenOffset)))
+            while (
+                (i < ret.Count)
+                && ((ret[i].TokenOffset == -1) || (label.TokenOffset > ret[i].TokenOffset))
+            )
             {
                 i++;
             }

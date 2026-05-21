@@ -7,6 +7,7 @@ namespace HspDecompiler.Core.Ax3.Data.Line;
 internal sealed class OnStatement : LogicalLine
 {
     private OnStatement() { }
+
     internal OnStatement(OnFunctionPrimitive theToken, ExpressionToken? exp, FunctionToken? func)
     {
         _token = theToken;

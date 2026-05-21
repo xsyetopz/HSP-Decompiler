@@ -33,7 +33,8 @@ internal struct HspDictionaryValue
     internal HspCodeExtraOptions _extra;
     internal int _operatorPriority;
 
-    public override readonly string ToString() => _name.Length == 0 ? _type.ToString() : _type.ToString() + "  \"" + _name + "\"";
+    public override readonly string ToString() =>
+        _name.Length == 0 ? _type.ToString() : _type.ToString() + "  \"" + _name + "\"";
 
     private static HspCodeType ParseCodeType(string value) =>
         value switch

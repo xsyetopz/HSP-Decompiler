@@ -62,10 +62,10 @@ internal sealed class ExeExtractor
     private static bool IsDpmMagic(byte[] header)
     {
         return header.Length >= 4
-               && header[0] == DpmMagicD
-               && header[1] == DpmMagicP
-               && header[2] == DpmMagicM
-               && (header[3] == DpmxMagicX || header[3] == Dpm2Magic2);
+            && header[0] == DpmMagicD
+            && header[1] == DpmMagicP
+            && header[2] == DpmMagicM
+            && (header[3] == DpmxMagicX || header[3] == Dpm2Magic2);
     }
 
     private static long seekDpmStart(Stream exeStream)

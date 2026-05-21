@@ -49,7 +49,10 @@ internal sealed class TokenCollection
             }
 
             PrimitiveToken token = _primitives[_position + 1];
-            return ((token.CodeExtraFlags & HspCodeExtraOptions.GotoFunction) == HspCodeExtraOptions.GotoFunction);
+            return (
+                (token.CodeExtraFlags & HspCodeExtraOptions.GotoFunction)
+                == HspCodeExtraOptions.GotoFunction
+            );
         }
     }
 
@@ -60,10 +63,7 @@ internal sealed class TokenCollection
             return null;
         }
 
-        var list = new List<PrimitiveToken>
-        {
-            _primitives[_position]
-        };
+        var list = new List<PrimitiveToken> { _primitives[_position] };
         _position++;
         while (_position < _primitives.Count)
         {
@@ -75,10 +75,7 @@ internal sealed class TokenCollection
             list.Add(_primitives[_position]);
             _position++;
         }
-        var ret = new TokenCollection
-        {
-            _primitives = list
-        };
+        var ret = new TokenCollection { _primitives = list };
         return ret;
     }
 
@@ -98,7 +95,10 @@ internal sealed class TokenCollection
 
     internal bool NextIsEndOfLine => NextIsEndOfStream ? true : _primitives[_position].IsLineHead;
 
-    internal bool NextIsEndOfParam => NextIsEndOfStream ? true : _primitives[_position].IsLineHead ? true : _primitives[_position].IsParamHead;
+    internal bool NextIsEndOfParam =>
+        NextIsEndOfStream ? true
+        : _primitives[_position].IsLineHead ? true
+        : _primitives[_position].IsParamHead;
 
     internal bool NextIsBracketStart
     {
@@ -110,7 +110,8 @@ internal sealed class TokenCollection
             }
 
             PrimitiveToken token = _primitives[_position];
-            return (token.CodeExtraFlags & HspCodeExtraOptions.BracketStart) == HspCodeExtraOptions.BracketStart;
+            return (token.CodeExtraFlags & HspCodeExtraOptions.BracketStart)
+                == HspCodeExtraOptions.BracketStart;
         }
     }
 
@@ -124,7 +125,8 @@ internal sealed class TokenCollection
             }
 
             PrimitiveToken token = _primitives[_position];
-            return (token.CodeExtraFlags & HspCodeExtraOptions.BracketEnd) == HspCodeExtraOptions.BracketEnd;
+            return (token.CodeExtraFlags & HspCodeExtraOptions.BracketEnd)
+                == HspCodeExtraOptions.BracketEnd;
         }
     }
 

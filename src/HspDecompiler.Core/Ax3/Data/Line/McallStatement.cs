@@ -7,13 +7,20 @@ namespace HspDecompiler.Core.Ax3.Data.Line;
 internal class McallStatement : LogicalLine
 {
     private McallStatement() { }
-    internal McallStatement(McallFunctionPrimitive theToken, VariablePrimitive var, ExpressionToken exp, ArgumentToken? arg)
+
+    internal McallStatement(
+        McallFunctionPrimitive theToken,
+        VariablePrimitive var,
+        ExpressionToken exp,
+        ArgumentToken? arg
+    )
     {
         _token = theToken;
         _var = var;
         _exp = exp;
         _arg = arg;
     }
+
     private readonly McallFunctionPrimitive? _token;
     private readonly VariablePrimitive? _var;
     private readonly ExpressionToken? _exp;

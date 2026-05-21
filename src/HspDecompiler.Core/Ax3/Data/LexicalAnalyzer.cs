@@ -9,6 +9,7 @@ namespace HspDecompiler.Core.Ax3.Data;
 internal class LexicalAnalyzer
 {
     private LexicalAnalyzer() { }
+
     internal LexicalAnalyzer(Hsp3Dictionary theDic)
     {
         ArgumentNullException.ThrowIfNull(theDic);
@@ -64,21 +65,28 @@ internal class LexicalAnalyzer
             _tokenOffset += 1;
         }
 
-        var key = new HspDictionaryKey
-        {
-            _type = type,
-            _value = value
-        };
+        var key = new HspDictionaryKey { _type = type, _value = value };
         HspDictionaryValue dicValue;
         if (_dictionary!.CodeLookUp(key, out dicValue))
         {
-            if ((dicValue._extra & HspCodeExtraOptions.HasExtraInt16) == HspCodeExtraOptions.HasExtraInt16)
+            if (
+                (dicValue._extra & HspCodeExtraOptions.HasExtraInt16)
+                == HspCodeExtraOptions.HasExtraInt16
+            )
             {
                 if ((flag & HspTokenFlag.LineHead) == HspTokenFlag.LineHead)
                 {
                     extraValue = reader.ReadUInt16();
                     _tokenOffset += 1;
-                    ret = CreatePrimitive(data, dicValue, theTokenOffset, type, flag, value, extraValue);
+                    ret = CreatePrimitive(
+                        data,
+                        dicValue,
+                        theTokenOffset,
+                        type,
+                        flag,
+                        value,
+                        extraValue
+                    );
                 }
                 else
                 {
@@ -92,7 +100,15 @@ internal class LexicalAnalyzer
         }
         else
         {
-            ret = CreatePrimitive(data, new HspDictionaryValue(), theTokenOffset, type, flag, value, -1);
+            ret = CreatePrimitive(
+                data,
+                new HspDictionaryValue(),
+                theTokenOffset,
+                type,
+                flag,
+                value,
+                -1
+            );
         }
 
         ret!.SetName();
@@ -100,7 +116,15 @@ internal class LexicalAnalyzer
         return ret;
     }
 
-    private static PrimitiveToken CreatePrimitive(AxData data, HspDictionaryValue dicValue, int theTokenOffset, int type, int flag, int value, int extraValue)
+    private static PrimitiveToken CreatePrimitive(
+        AxData data,
+        HspDictionaryValue dicValue,
+        int theTokenOffset,
+        int type,
+        int flag,
+        int value,
+        int extraValue
+    )
     {
         var dataset = new PrimitiveTokenDataSet
         {
@@ -110,7 +134,7 @@ internal class LexicalAnalyzer
             _type = type,
             _flag = flag,
             _value = value,
-            _name = dicValue._name
+            _name = dicValue._name,
         };
         switch (dicValue._type)
         {
@@ -132,7 +156,9 @@ internal class LexicalAnalyzer
                 return new OperatorPrimitive(dataset);
             case HspCodeType.IfStatement:
             case HspCodeType.ElseStatement:
-                return extraValue >= 0 ? new IfStatementPrimitive(dataset, extraValue) : (PrimitiveToken)new HspFunctionPrimitive(dataset);
+                return extraValue >= 0
+                    ? new IfStatementPrimitive(dataset, extraValue)
+                    : (PrimitiveToken)new HspFunctionPrimitive(dataset);
 
             case HspCodeType.HspFunction:
                 return new HspFunctionPrimitive(dataset);

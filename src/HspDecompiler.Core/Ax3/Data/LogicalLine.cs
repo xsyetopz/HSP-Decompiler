@@ -4,10 +4,7 @@ namespace HspDecompiler.Core.Ax3.Data;
 
 internal abstract class LogicalLine
 {
-    internal abstract int TokenOffset
-    {
-        get;
-    }
+    internal abstract int TokenOffset { get; }
 
     protected int _tabCount;
 
@@ -18,8 +15,11 @@ internal abstract class LogicalLine
     }
 
     protected List<string> _errorMes = new();
+
     internal List<string> GetErrorMes() => _errorMes;
+
     internal void AddError(string error) => _errorMes.Add(error);
+
     public abstract override string ToString();
 
     private bool _visible = true;
@@ -35,5 +35,6 @@ internal abstract class LogicalLine
     internal virtual bool HasFlagIsGhost => false;
 
     internal virtual void CheckLabel() { }
+
     internal virtual bool CheckRpn() => true;
 }

@@ -8,8 +8,11 @@ internal class Param : Preprocessor
 {
     // Fix #38: named constant for the invalid-type comment prefix (HSP source convention)
     private const string InvalidTypeCommentPrefix = "/*不正な型 ";
+
     private Param() { }
-    private Param(int paramIndex) : base(paramIndex) { }
+
+    private Param(int paramIndex)
+        : base(paramIndex) { }
 
     private string _paramTypeName = "NULL";
     private short _deffuncIndex;
@@ -17,11 +20,10 @@ internal class Param : Preprocessor
 
     internal static Param FromBinaryReader(BinaryReader reader, AxData parent, int index)
     {
-        var ret = new Param(index)
-        {
-            _paramType = reader.ReadUInt16()
-        };
-        ret._paramTypeName = !parent.Dictionary!.ParamLookUp(ret._paramType, out string? lookupName) ? "NULL" : lookupName ?? "NULL";
+        var ret = new Param(index) { _paramType = reader.ReadUInt16() };
+        ret._paramTypeName = !parent.Dictionary!.ParamLookUp(ret._paramType, out string? lookupName)
+            ? "NULL"
+            : lookupName ?? "NULL";
 
         ret._deffuncIndex = reader.ReadInt16();
         ret._paramStartByte = reader.ReadInt32();
@@ -96,7 +98,9 @@ internal class Param : Preprocessor
                 strbd.Append(_paramType.ToString("X04", CultureInfo.InvariantCulture));
                 strbd.Append("*/");
             }
-            else if ((localToVar) && (_paramTypeName.Equals("local", System.StringComparison.Ordinal)))
+            else if (
+                (localToVar) && (_paramTypeName.Equals("local", System.StringComparison.Ordinal))
+            )
             {
                 strbd.Append("var");
             }
@@ -119,9 +123,10 @@ internal class Param : Preprocessor
 
     public override string ToString() => ToString(false, false, false);
 
-    internal bool IsModuleType => _paramTypeName switch
-    {
-        "modvar" or "modinit" or "modterm" or "struct" => true,
-        _ => false,
-    };
+    internal bool IsModuleType =>
+        _paramTypeName switch
+        {
+            "modvar" or "modinit" or "modterm" or "struct" => true,
+            _ => false,
+        };
 }

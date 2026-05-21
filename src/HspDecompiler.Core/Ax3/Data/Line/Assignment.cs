@@ -6,11 +6,13 @@ namespace HspDecompiler.Core.Ax3.Data.Line;
 internal sealed class Assignment : LogicalLine
 {
     private Assignment() { }
+
     internal Assignment(VariableToken theVar, OperatorToken theOp)
     {
         _var = theVar;
         _op = theOp;
     }
+
     internal Assignment(VariableToken theVar, OperatorToken theOp, ArgumentToken theArg)
     {
         _var = theVar;

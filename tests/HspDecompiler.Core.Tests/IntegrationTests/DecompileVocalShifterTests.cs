@@ -8,14 +8,11 @@ namespace HspDecompiler.Core.Tests.IntegrationTests;
 
 public sealed class DecompileVocalShifterTests
 {
-    private static string FixturesDir =>
-        Path.Combine(AppContext.BaseDirectory, "Fixtures");
+    private static string FixturesDir => Path.Combine(AppContext.BaseDirectory, "Fixtures");
 
-    private static string VocalShifterExePath =>
-        Path.Combine(FixturesDir, "vocalshifter.exe");
+    private static string VocalShifterExePath => Path.Combine(FixturesDir, "vocalshifter.exe");
 
-    private static string StartOrigHspPath =>
-        Path.Combine(FixturesDir, "start_orig.hsp");
+    private static string StartOrigHspPath => Path.Combine(FixturesDir, "start_orig.hsp");
 
     private static string DictionaryPath =>
         Path.Combine(AppContext.BaseDirectory, "Dictionary.csv");
@@ -41,7 +38,10 @@ public sealed class DecompileVocalShifterTests
             }
         }
 
-        string tempDir = Path.Combine(Path.GetTempPath(), $"hsp-decompiler-test-{Guid.NewGuid():N}");
+        string tempDir = Path.Combine(
+            Path.GetTempPath(),
+            $"hsp-decompiler-test-{Guid.NewGuid():N}"
+        );
         Directory.CreateDirectory(tempDir);
 
         try
@@ -56,12 +56,21 @@ public sealed class DecompileVocalShifterTests
                 SkipEncrypted = false,
             };
 
-            DecompilerResult decompilerResult = await pipeline.RunAsync(options).ConfigureAwait(true);
+            DecompilerResult decompilerResult = await pipeline
+                .RunAsync(options)
+                .ConfigureAwait(true);
 
-            Assert.True(decompilerResult.Success, $"Pipeline failed: {decompilerResult.ErrorMessage}");
+            Assert.True(
+                decompilerResult.Success,
+                $"Pipeline failed: {decompilerResult.ErrorMessage}"
+            );
 
             string extractDir = Path.Combine(tempDir, "vocalshifter");
-            string[] hspFiles = Directory.GetFiles(extractDir, "start.hsp", SearchOption.TopDirectoryOnly);
+            string[] hspFiles = Directory.GetFiles(
+                extractDir,
+                "start.hsp",
+                SearchOption.TopDirectoryOnly
+            );
             Assert.True(hspFiles.Length > 0, $"No start.hsp found under {extractDir}");
 
             string produced = await File.ReadAllTextAsync(hspFiles[0]).ConfigureAwait(true);

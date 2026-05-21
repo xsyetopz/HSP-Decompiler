@@ -17,7 +17,7 @@ internal sealed class CliLogger(bool verbose) : IDecompilerLogger
     {
         int elapsed = Environment.TickCount - _startTime;
         string indent = new(' ', _indentLevel * 2);
-        Console.WriteLine($"[{elapsed,8}] {indent}{message}");
+        Console.WriteLine($"[{elapsed, 8}] {indent}{message}");
     }
 
     public void Warning(string message, int lineNumber = -1)
@@ -31,7 +31,11 @@ internal sealed class CliLogger(bool verbose) : IDecompilerLogger
     }
 
     public void LogError(string message) => Console.Error.WriteLine($"ERROR: {message}");
-    public void LogError(Exception exception) => Console.Error.WriteLine($"ERROR: {exception.Message}");
+
+    public void LogError(Exception exception) =>
+        Console.Error.WriteLine($"ERROR: {exception.Message}");
+
     public void StartSection() => _indentLevel++;
+
     public void EndSection() => _indentLevel--;
 }

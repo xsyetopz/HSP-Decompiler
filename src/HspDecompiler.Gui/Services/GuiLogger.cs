@@ -20,7 +20,7 @@ internal sealed class GuiLogger(MainWindowViewModel vm) : IDecompilerLogger
         int elapsedMs = Environment.TickCount - _startTime;
         double elapsedSec = elapsedMs / 1000.0;
         string indent = new(' ', _indentLevel * 2);
-        string line = $"[{elapsedSec,7:F3}s]  {indent}{message}";
+        string line = $"[{elapsedSec, 7:F3}s]  {indent}{message}";
         Dispatcher.UIThread.Post(() => _vm.AppendLog(line));
     }
 
@@ -34,7 +34,7 @@ internal sealed class GuiLogger(MainWindowViewModel vm) : IDecompilerLogger
     {
         int elapsedMs = Environment.TickCount - _startTime;
         double elapsedSec = elapsedMs / 1000.0;
-        string line = $"[{elapsedSec,7:F3}s]  ERROR: {message}";
+        string line = $"[{elapsedSec, 7:F3}s]  ERROR: {message}";
         Dispatcher.UIThread.Post(() => _vm.AppendLog(line));
     }
 
@@ -42,10 +42,11 @@ internal sealed class GuiLogger(MainWindowViewModel vm) : IDecompilerLogger
     {
         int elapsedMs = Environment.TickCount - _startTime;
         double elapsedSec = elapsedMs / 1000.0;
-        string line = $"[{elapsedSec,7:F3}s]  ERROR: {exception.Message}";
+        string line = $"[{elapsedSec, 7:F3}s]  ERROR: {exception.Message}";
         Dispatcher.UIThread.Post(() => _vm.AppendLog(line));
     }
 
     public void StartSection() => _indentLevel++;
+
     public void EndSection() => _indentLevel--;
 }

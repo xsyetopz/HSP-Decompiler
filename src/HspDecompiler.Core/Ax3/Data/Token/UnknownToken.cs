@@ -3,6 +3,7 @@ namespace HspDecompiler.Core.Ax3.Data.Token;
 internal sealed class UnknownToken : CodeToken
 {
     private UnknownToken() { }
+
     internal UnknownToken(PrimitiveToken token)
     {
         _token = token;

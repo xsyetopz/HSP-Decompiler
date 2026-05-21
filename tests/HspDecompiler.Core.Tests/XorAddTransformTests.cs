@@ -12,7 +12,7 @@ public class XorAddTransformTests
         {
             _xorByte = 0xAB,
             _addByte = 0x34,
-            _xorSum = false
+            _xorSum = false,
         };
 
         byte original = 0x48;
@@ -28,7 +28,7 @@ public class XorAddTransformTests
         {
             _xorByte = 0xCD,
             _addByte = 0x12,
-            _xorSum = true
+            _xorSum = true,
         };
 
         byte original = 0x53;
@@ -44,7 +44,7 @@ public class XorAddTransformTests
         {
             _xorByte = 0xFF,
             _addByte = 0x7F,
-            _xorSum = false
+            _xorSum = false,
         };
 
         for (int i = 0; i < 256; i++)
@@ -73,7 +73,8 @@ public class XorAddTransformTests
     [Fact]
     public void XorIsSelfInverse()
     {
-        byte a = 0x48, b = 0xAB;
+        byte a = 0x48,
+            b = 0xAB;
         Assert.Equal(a, XorAddTransform.Xor(XorAddTransform.Xor(a, b), b));
     }
 
@@ -85,7 +86,12 @@ public class XorAddTransformTests
         byte encrypted = 0x99;
         bool xorSum = false;
         byte xorByte = XorAddTransform.GetXorByte(add, plain, encrypted, xorSum);
-        var transform = new XorAddTransform { _xorByte = xorByte, _addByte = add, _xorSum = xorSum };
+        var transform = new XorAddTransform
+        {
+            _xorByte = xorByte,
+            _addByte = add,
+            _xorSum = xorSum,
+        };
         Assert.Equal(encrypted, transform.Encode(plain));
     }
 }

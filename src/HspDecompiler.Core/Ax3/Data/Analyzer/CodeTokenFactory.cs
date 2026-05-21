@@ -24,15 +24,16 @@ internal partial class LogicalLineFactory
                     break;
                 }
 
-                elem = stream.NextToken is OperatorPrimitive
-                    ? (ExpressionTermToken)(ReadOperator(stream))
+                elem =
+                    stream.NextToken is OperatorPrimitive
+                        ? (ExpressionTermToken)(ReadOperator(stream))
                     : stream.NextToken is LiteralPrimitive
                         ? (ExpressionTermToken)(ReadLiteral(stream))
-                        : stream.NextToken is FunctionPrimitive
-                                            ? (ExpressionTermToken)(ReadFunction(stream, true))
-                                            : stream.NextToken is VariablePrimitive
-                                                                ? (ExpressionTermToken)(ReadVariable(stream))
-                                                                : throw new HspLogicalLineException(Strings.ExpressionInvalidElement);
+                    : stream.NextToken is FunctionPrimitive
+                        ? (ExpressionTermToken)(ReadFunction(stream, true))
+                    : stream.NextToken is VariablePrimitive
+                        ? (ExpressionTermToken)(ReadVariable(stream))
+                    : throw new HspLogicalLineException(Strings.ExpressionInvalidElement);
 
                 elements.Add(elem);
             } while (!stream.NextIsEndOfParam);
@@ -48,7 +49,9 @@ internal partial class LogicalLineFactory
                 throw new HspLogicalLineException(Strings.LiteralExpressionStackEmpty);
             }
 
-            LiteralPrimitive? token = stream.GetNextToken() as LiteralPrimitive ?? throw new HspLogicalLineException(Strings.LiteralExpressionInvalidElement);
+            LiteralPrimitive? token =
+                stream.GetNextToken() as LiteralPrimitive
+                ?? throw new HspLogicalLineException(Strings.LiteralExpressionInvalidElement);
             return new LiteralToken(token);
         }
 
@@ -86,7 +89,9 @@ internal partial class LogicalLineFactory
                 throw new HspLogicalLineException(Strings.FunctionStackEmpty);
             }
 
-            FunctionPrimitive? token = stream.GetNextToken() as FunctionPrimitive ?? throw new HspLogicalLineException(Strings.FunctionInvalidStart);
+            FunctionPrimitive? token =
+                stream.GetNextToken() as FunctionPrimitive
+                ?? throw new HspLogicalLineException(Strings.FunctionInvalidStart);
             if (stream.NextIsEndOfLine)
             {
                 return new FunctionToken(token);
@@ -101,9 +106,9 @@ internal partial class LogicalLineFactory
                 }
             }
 
-            return stream.NextIsBracketStart
-                ? new FunctionToken(token, ReadArgument(stream))
-                : hasBracket ? new FunctionToken(token) : new FunctionToken(token, ReadArgument(stream));
+            return stream.NextIsBracketStart ? new FunctionToken(token, ReadArgument(stream))
+                : hasBracket ? new FunctionToken(token)
+                : new FunctionToken(token, ReadArgument(stream));
         }
 
         internal static VariableToken ReadVariable(TokenCollection stream)
@@ -113,8 +118,12 @@ internal partial class LogicalLineFactory
                 throw new HspLogicalLineException(Strings.VariableStackEmpty);
             }
 
-            VariablePrimitive? token = stream.GetNextToken() as VariablePrimitive ?? throw new HspLogicalLineException(Strings.VariableInvalidStart);
-            return stream.NextIsBracketStart ? new VariableToken(token, ReadArgument(stream)) : new VariableToken(token);
+            VariablePrimitive? token =
+                stream.GetNextToken() as VariablePrimitive
+                ?? throw new HspLogicalLineException(Strings.VariableInvalidStart);
+            return stream.NextIsBracketStart
+                ? new VariableToken(token, ReadArgument(stream))
+                : new VariableToken(token);
         }
 
         internal static OperatorToken ReadOperator(TokenCollection stream)
@@ -124,7 +133,9 @@ internal partial class LogicalLineFactory
                 throw new HspLogicalLineException(Strings.OperatorStackEmpty);
             }
 
-            OperatorPrimitive? token = stream.GetNextToken() as OperatorPrimitive ?? throw new HspLogicalLineException(Strings.OperatorInvalidElement);
+            OperatorPrimitive? token =
+                stream.GetNextToken() as OperatorPrimitive
+                ?? throw new HspLogicalLineException(Strings.OperatorInvalidElement);
             return new OperatorToken(token);
         }
     }

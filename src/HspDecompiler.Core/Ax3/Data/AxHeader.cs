@@ -19,8 +19,12 @@ internal enum HeaderDataSize
 
 internal sealed class AxHeader
 {
-    private static readonly CompositeFormat s_regionStartFormat = CompositeFormat.Parse(Strings.HeaderRegionStartExceedsFileSize);
-    private static readonly CompositeFormat s_regionEndFormat = CompositeFormat.Parse(Strings.HeaderRegionEndExceedsFileSize);
+    private static readonly CompositeFormat s_regionStartFormat = CompositeFormat.Parse(
+        Strings.HeaderRegionStartExceedsFileSize
+    );
+    private static readonly CompositeFormat s_regionEndFormat = CompositeFormat.Parse(
+        Strings.HeaderRegionEndExceedsFileSize
+    );
 
     internal static AxHeader FromBinaryReader(BinaryReader reader)
     {
@@ -65,72 +69,132 @@ internal sealed class AxHeader
 
         if (CodeStart > AllDataSize)
         {
-            throw HSPDecoderException(string.Format(CultureInfo.InvariantCulture, s_regionStartFormat, Strings.RegionCode));
+            throw HSPDecoderException(
+                string.Format(CultureInfo.InvariantCulture, s_regionStartFormat, Strings.RegionCode)
+            );
         }
 
         if (LiteralStart > AllDataSize)
         {
-            throw HSPDecoderException(string.Format(CultureInfo.InvariantCulture, s_regionStartFormat, Strings.RegionLiteral));
+            throw HSPDecoderException(
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    s_regionStartFormat,
+                    Strings.RegionLiteral
+                )
+            );
         }
 
         if (LabelStart > AllDataSize)
         {
-            throw HSPDecoderException(string.Format(CultureInfo.InvariantCulture, s_regionStartFormat, Strings.RegionLabel));
+            throw HSPDecoderException(
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    s_regionStartFormat,
+                    Strings.RegionLabel
+                )
+            );
         }
 
         if (DllStart > AllDataSize)
         {
-            throw HSPDecoderException(string.Format(CultureInfo.InvariantCulture, s_regionStartFormat, Strings.RegionDll));
+            throw HSPDecoderException(
+                string.Format(CultureInfo.InvariantCulture, s_regionStartFormat, Strings.RegionDll)
+            );
         }
 
         if (FunctionStart > AllDataSize)
         {
-            throw HSPDecoderException(string.Format(CultureInfo.InvariantCulture, s_regionStartFormat, Strings.RegionFunction));
+            throw HSPDecoderException(
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    s_regionStartFormat,
+                    Strings.RegionFunction
+                )
+            );
         }
 
         if (PluginStart > AllDataSize)
         {
-            throw HSPDecoderException(string.Format(CultureInfo.InvariantCulture, s_regionStartFormat, Strings.RegionPlugin));
+            throw HSPDecoderException(
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    s_regionStartFormat,
+                    Strings.RegionPlugin
+                )
+            );
         }
 
         if (ParameterStart > AllDataSize)
         {
-            throw HSPDecoderException(string.Format(CultureInfo.InvariantCulture, s_regionStartFormat, Strings.RegionParameter));
+            throw HSPDecoderException(
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    s_regionStartFormat,
+                    Strings.RegionParameter
+                )
+            );
         }
 
         if (CodeEnd > AllDataSize)
         {
-            throw HSPDecoderException(string.Format(CultureInfo.InvariantCulture, s_regionEndFormat, Strings.RegionCode));
+            throw HSPDecoderException(
+                string.Format(CultureInfo.InvariantCulture, s_regionEndFormat, Strings.RegionCode)
+            );
         }
 
         if (LiteralEnd > AllDataSize)
         {
-            throw HSPDecoderException(string.Format(CultureInfo.InvariantCulture, s_regionEndFormat, Strings.RegionLiteral));
+            throw HSPDecoderException(
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    s_regionEndFormat,
+                    Strings.RegionLiteral
+                )
+            );
         }
 
         if (LabelEnd > AllDataSize)
         {
-            throw HSPDecoderException(string.Format(CultureInfo.InvariantCulture, s_regionEndFormat, Strings.RegionLabel));
+            throw HSPDecoderException(
+                string.Format(CultureInfo.InvariantCulture, s_regionEndFormat, Strings.RegionLabel)
+            );
         }
 
         if (DllEnd > AllDataSize)
         {
-            throw HSPDecoderException(string.Format(CultureInfo.InvariantCulture, s_regionEndFormat, Strings.RegionDll));
+            throw HSPDecoderException(
+                string.Format(CultureInfo.InvariantCulture, s_regionEndFormat, Strings.RegionDll)
+            );
         }
 
         if (FunctionEnd > AllDataSize)
         {
-            throw HSPDecoderException(string.Format(CultureInfo.InvariantCulture, s_regionEndFormat, Strings.RegionFunction));
+            throw HSPDecoderException(
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    s_regionEndFormat,
+                    Strings.RegionFunction
+                )
+            );
         }
 
         if (PluginEnd > AllDataSize)
         {
-            throw HSPDecoderException(string.Format(CultureInfo.InvariantCulture, s_regionEndFormat, Strings.RegionPlugin));
+            throw HSPDecoderException(
+                string.Format(CultureInfo.InvariantCulture, s_regionEndFormat, Strings.RegionPlugin)
+            );
         }
 
         if (ParameterEnd > AllDataSize)
         {
-            throw HSPDecoderException(string.Format(CultureInfo.InvariantCulture, s_regionEndFormat, Strings.RegionParameter));
+            throw HSPDecoderException(
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    s_regionEndFormat,
+                    Strings.RegionParameter
+                )
+            );
         }
     }
 

@@ -12,9 +12,7 @@ internal class Hsp3Dictionary
     private const int ExtendedCommandValueThreshold = 0x1000;
     private const int PluginFunctionTypeBase = 0x12;
 
-    private Hsp3Dictionary()
-    {
-    }
+    private Hsp3Dictionary() { }
 
     private readonly Dictionary<HspDictionaryKey, HspDictionaryValue> _codeDictionary = new();
     private readonly Dictionary<int, string> _paramDictionary = new();
@@ -138,11 +136,7 @@ internal class Hsp3Dictionary
             return true;
         }
 
-        var newkey = new HspDictionaryKey(key)
-        {
-            _value = -1,
-            _allValue = true
-        };
+        var newkey = new HspDictionaryKey(key) { _value = -1, _allValue = true };
         if (_codeDictionary.TryGetValue(newkey, out value))
         {
             return true;
@@ -166,7 +160,8 @@ internal class Hsp3Dictionary
         return false;
     }
 
-    internal bool ParamLookUp(int paramKey, out string? paramTypeName) => _paramDictionary.TryGetValue(paramKey, out paramTypeName);
+    internal bool ParamLookUp(int paramKey, out string? paramTypeName) =>
+        _paramDictionary.TryGetValue(paramKey, out paramTypeName);
 
     internal List<string> GetAllFuncName()
     {
@@ -180,7 +175,9 @@ internal class Hsp3Dictionary
                 case HspCodeType.OnEventStatement:
                 case HspCodeType.OnStatement:
                 case HspCodeType.McallStatement:
-                    functionNames.Add(pair.Value._name.ToLower(System.Globalization.CultureInfo.CurrentCulture));
+                    functionNames.Add(
+                        pair.Value._name.ToLower(System.Globalization.CultureInfo.CurrentCulture)
+                    );
                     break;
                 case HspCodeType.NONE:
                     break;

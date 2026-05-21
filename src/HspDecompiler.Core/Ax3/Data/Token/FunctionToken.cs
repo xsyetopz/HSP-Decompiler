@@ -6,6 +6,7 @@ namespace HspDecompiler.Core.Ax3.Data.Token;
 internal sealed class FunctionToken : OperandToken
 {
     private FunctionToken() { }
+
     internal FunctionToken(FunctionPrimitive token)
     {
         _primitive = token;

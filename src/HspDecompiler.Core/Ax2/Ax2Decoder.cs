@@ -11,7 +11,12 @@ namespace HspDecompiler.Core.Ax2;
 
 internal sealed class Ax2Decoder : IAxDecoder
 {
-    public Task<List<string>> DecodeAsync(BinaryReader reader, IDecompilerLogger logger, IProgressReporter progress, CancellationToken ct = default)
+    public Task<List<string>> DecodeAsync(
+        BinaryReader reader,
+        IDecompilerLogger logger,
+        IProgressReporter progress,
+        CancellationToken ct = default
+    )
     {
         AxData data;
         try

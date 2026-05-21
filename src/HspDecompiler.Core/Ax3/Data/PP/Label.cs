@@ -5,17 +5,17 @@ namespace HspDecompiler.Core.Ax3.Data.PP;
 internal class Label : Preprocessor, System.IComparable<Label>
 {
     private Label() { }
-    private Label(int index) : base(index) { }
+
+    private Label(int index)
+        : base(index) { }
+
     private int _tokenOffset = -1;
 
     internal int TokenOffset => _tokenOffset;
 
     internal static Label FromBinaryReader(BinaryReader reader, AxData _, int index)
     {
-        var ret = new Label(index)
-        {
-            _tokenOffset = reader.ReadInt32()
-        };
+        var ret = new Label(index) { _tokenOffset = reader.ReadInt32() };
         return ret;
     }
 
@@ -46,6 +46,7 @@ internal class Label : Preprocessor, System.IComparable<Label>
     }
 
     private Function? _function;
+
     internal void SetFunction(Function f)
     {
         _function = f;

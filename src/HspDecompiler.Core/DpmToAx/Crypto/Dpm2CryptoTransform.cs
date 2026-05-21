@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 
 namespace HspDecompiler.Core.DpmToAx.Crypto;
@@ -20,7 +21,10 @@ internal sealed class Dpm2CryptoTransform
     {
         int encode = RecoverEncode(crcSeed, salt);
         int passwordValue = crcSeed + encode;
-        string password = string.Create(CultureInfo.InvariantCulture, $"HSP3Encode:{passwordValue}");
+        string password = string.Create(
+            CultureInfo.InvariantCulture,
+            $"HSP3Encode:{passwordValue}"
+        );
         byte[] passwordBytes = System.Text.Encoding.ASCII.GetBytes(password);
         uint crc = Crc32(passwordBytes);
 
@@ -43,7 +47,10 @@ internal sealed class Dpm2CryptoTransform
         for (int encode = 0; encode <= 0xFFFF; encode++)
         {
             int passwordValue = seed + encode;
-            string password = string.Create(CultureInfo.InvariantCulture, $"HSP3Encode:{passwordValue}");
+            string password = string.Create(
+                CultureInfo.InvariantCulture,
+                $"HSP3Encode:{passwordValue}"
+            );
             byte[] passwordBytes = System.Text.Encoding.ASCII.GetBytes(password);
             uint crc = Crc32(passwordBytes);
 
@@ -59,7 +66,12 @@ internal sealed class Dpm2CryptoTransform
             }
         }
 
-        return 0;
+        throw new InvalidOperationException(
+            string.Create(
+                CultureInfo.InvariantCulture,
+                $"Unable to recover DPM2 encode value for seed={seed}, salt={salt}."
+            )
+        );
     }
 
     private static int ComputeAccum(ushort seedValue)

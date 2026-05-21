@@ -5,10 +5,12 @@ namespace HspDecompiler.Core.Ax3.Data.Line;
 internal class CommentLine : LogicalLine
 {
     internal CommentLine() { }
+
     internal CommentLine(string str)
     {
         _comment = str;
     }
+
     private readonly string? _comment;
     internal override int TokenOffset => -1;
 

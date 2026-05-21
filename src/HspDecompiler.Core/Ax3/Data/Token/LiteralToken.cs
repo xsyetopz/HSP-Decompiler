@@ -5,6 +5,7 @@ namespace HspDecompiler.Core.Ax3.Data.Token;
 internal sealed class LiteralToken : OperandToken
 {
     private LiteralToken() { }
+
     internal LiteralToken(LiteralPrimitive token)
     {
         _token = token;
@@ -17,7 +18,10 @@ internal sealed class LiteralToken : OperandToken
 
     internal override int TokenOffset => _token == null ? -1 : _token.TokenOffset;
 
-    public override string ToString() => (_token!.CodeType == HspCodeType.Symbol) && (_token.ToString() == "?") ? "" : _token.ToString();
+    public override string ToString() =>
+        (_token!.CodeType == HspCodeType.Symbol) && (_token.ToString() == "?")
+            ? ""
+            : _token.ToString();
 
     internal override int Priority => IsNegativeNumber ? -1 : 100;
 
