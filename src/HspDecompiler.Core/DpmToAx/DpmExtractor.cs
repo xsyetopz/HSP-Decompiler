@@ -83,11 +83,7 @@ internal sealed class DpmExtractor
             return false;
         }
         _reader.BaseStream.Seek(_startPosition, SeekOrigin.Begin);
-        if (isDpm2)
-        {
-            return ReadDpm2Header();
-        }
-        return ReadDpmxHeader();
+        return isDpm2 ? ReadDpm2Header() : ReadDpmxHeader();
     }
 
     private BinaryReader? _reader;

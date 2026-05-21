@@ -88,7 +88,7 @@ public class HspCryptoTransformTests
     [Fact]
     public void Dpm2FromCrcSeedThrowsWhenEncodeCannotBeRecovered()
     {
-        var ex = Assert.Throws<InvalidOperationException>(() =>
+        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() =>
             Dpm2CryptoTransform.FromCrcSeed(1, int.MaxValue)
         );
 
